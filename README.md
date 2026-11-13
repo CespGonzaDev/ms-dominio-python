@@ -4,40 +4,70 @@ Microservicio del **dominio** de SkillGrow: catálogo de áreas y habilidades, s
 
 | | |
 |---|---|
-| Stack | Python 3.12 · FastAPI · Pydantic v2 |
-| Datos | Azure Cosmos DB (API NoSQL) |
+| Stack | Python 3.12 · FastAPI · Pydantic v2 · httpx |
+| Datos | Azure Cosmos DB (API NoSQL, 5 contenedores) |
 | Hosting | Azure App Service (Linux) |
 | Entrada pública | Solo vía Azure API Management: `https://skillgrow-org.azure-api.net/dominio/v1/...` |
 
-> Estado: **Fase B** (catálogo + CRUD y búsqueda de servicios). Descubrimiento, reseñas y reportes se agregan en la fase C.
+## Endpoints implementados
 
-## Endpoints
+Rutas internas; en APIM se publican con el prefijo `/dominio` (ej. `/dominio/v1/services`). Todas (salvo `/health` y `/v1/health`) exigen identidad propagada por APIM (`X-User-Id` y `X-User-Role`).
 
-Rutas internas; en APIM se publican con el prefijo `/dominio` (ej. `/dominio/v1/services`). Todas (salvo `health`) exigen `X-User-Id`, que APIM extrae del JWT.
+### Salud y catálogo
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/v1/health` (y `/health`) | Salud |
-| GET | `/v1/catalog/areas` | Áreas |
-| GET | `/v1/catalog/skills?areaId=` | Habilidades |
-| GET | `/v1/services` | Búsqueda: `search, skillId, areaId, modality, type, minRating, priceMax, free, day, sort (recent\|rating\|priceAsc\|priceDesc), page, pageSize`. Solo servicios `active`. Respuesta `{ totalRecords, page, pageSize, items }` |
-| GET | `/v1/services/{id}` | Detalle (cualquier estado; lo usa MS1 al reservar) |
-| GET | `/v1/me/services` | Servicios del usuario |
-| POST | `/v1/services` | Crear (201). El mentor sale de `X-User-Id`, nunca del body |
-| PUT | `/v1/services/{id}` | Reemplazar campos editables (solo el dueño, si no 403) |
-| PATCH | `/v1/services/{id}/status` | `active \| paused \| inactive` (solo el dueño) |
-| DELETE | `/v1/services/{id}` | 204 (solo el dueño) |
+| GET | `/v1/health` (y `/health`) | Salud del servicio y timestamp `*EpochMs` |
+| GET | `/v1/catalog/areas` | Áreas de conocimiento (`14` en seed Fase I) |
+| GET | `/v1/catalog/skills` | Habilidades (`?areaId=&search=`) |
 
-### Supuestos que hay que confirmar contra la Fase I
+### Servicios de mentoría
 
-La forma de un servicio (campos, valores de `type`/`modality`, formato de `availableDays`, valores de `sort`) se dedujo del reparto; el contrato real de la Fase I no estaba disponible. Ver [app/schemas/service.py](app/schemas/service.py).
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | `/v1/services` | Búsqueda pública (`search, skillId, areaId, mentorId, modality, type, minRating, priceMax, free, day, sort, page, pageSize`) |
+| GET | `/v1/me/services` | Servicios del usuario autenticado (`Page[ServiceOut]`, consulta de una sola partición) |
+| GET | `/v1/services/{id}` | Detalle del servicio (lo consume también `ms-core` al reservar) |
+| POST | `/v1/services` | Crear servicio (`201`). `mentorId` proviene de `X-User-Id` |
+| PUT | `/v1/services/{id}` | Reemplazar campos editables (solo dueño, si no `403`) |
+| PATCH | `/v1/services/{id}/status` | Cambiar estado `activo \| inactivo` (solo dueño) |
+| DELETE | `/v1/services/{id}` | Eliminar servicio (`204`, solo dueño) |
 
-## Arquitectura (capas simples)
+### Descubrimiento
 
-```
-routes (app/api) → services (lógica) → repositories (Cosmos)
-                       ↑ schemas (Pydantic)      ↑ única capa que importa azure.cosmos
-core: config · security (mTLS APIM) · errors (formato estándar)
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | `/v1/mentors` | Directorio de mentores (`search, areaId, skillId, minRating, page, pageSize`) |
+| GET | `/v1/feed` | Feed mixto (`service` / `mentor`), excluye servicios propios |
+| GET | `/v1/recommendations` | Hasta 10 servicios recomendados usando historial de búsqueda e intereses de `ms-core` |
+| POST | `/v1/me/search-history` | Registrar búsqueda del usuario (`204`) |
+
+### Reseñas y calificaciones
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| POST | `/v1/sessions/{id}/review` | Crear reseña (`201`). Valida participante y estado `completada` en `ms-core` y recalcula el promedio del mentor |
+| GET | `/v1/users/{id}/reviews` | Reseñas visibles de un mentor (`?rating=&page=&pageSize=`) |
+| GET | `/v1/users/{id}/rating-summary` | Promedio, conteo y distribución `1..5` |
+
+### Reportes y administración
+
+| Método | Ruta | Rol | Descripción |
+|---|---|---|---|
+| POST | `/v1/reports` | Usuario | Crear reporte sobre `user`, `service` o `review` (`201`) |
+| GET | `/v1/admin/services` | Admin | Moderación de servicios (`search, status, reported`) con `reportsCount` |
+| PATCH | `/v1/admin/services/{id}/status` | Admin | Activar/desactivar servicio con motivo obligatorio |
+| GET | `/v1/admin/reports` | Admin | Bandeja de reportes (`status, targetType, search`) |
+| PATCH | `/v1/admin/reports/{id}` | Admin | Actualizar estado/resolución y ejecutar acción (`desactivar_servicio`, `ocultar_resena`, `suspender_usuario`) |
+| GET | `/v1/admin/stats` | Admin | Totales de servicios, reseñas y top 5 áreas |
+
+## Arquitectura (capas desacopladas)
+
+```text
+routes (app/api/routes) → services (app/services) → repositories (app/repositories)
+                             ↑ schemas (Pydantic v2)      ↑ única capa que importa azure.cosmos
+clients (app/clients/core_client.py) → llamadas síncronas vía APIM a ms-core
+core: config · security (mTLS APIM + headers JWT) · errors (formato estándar)
 ```
 
 ## Cómo correrlo en local
@@ -46,19 +76,19 @@ core: config · security (mTLS APIM) · errors (formato estándar)
 python -m venv .venv
 .\.venv\Scripts\activate
 pip install -r requirements-dev.txt
-copy .env.example .env        # completar valores; APIM_CERT_CHECK=false en local
+copy .env.example .env        # APIM_CERT_CHECK=false en local
 uvicorn app.main:app --reload
 ```
 
 - Salud: <http://localhost:8000/health>
 - Swagger: <http://localhost:8000/docs>
 
-Tests y lint:
+Tests, lint y OpenAPI:
 
 ```powershell
 pytest -q
 ruff check .
-python -m scripts.export_openapi   # genera docs/openapi.json para importar en APIM
+python -m scripts.export_openapi   # actualiza docs/openapi.json para importar en APIM
 ```
 
 Pruebas de integración contra el emulador local de Cosmos DB (Docker):
@@ -68,51 +98,42 @@ docker run -d --name cosmos-emulator -p 8081:8081 -p 1234:1234 mcr.microsoft.com
 $env:COSMOS_ENDPOINT="http://localhost:8081"
 $env:COSMOS_KEY="C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
 $env:COSMOS_DATABASE="skillgrow"
-python -m scripts.seed_cosmos --fixtures-dir data/seed/sample
+python -m scripts.seed_cosmos --fixtures-dir data/seed/fase1
 pytest -q
 ```
 
 ## Variables de entorno
 
-Ver [.env.example](.env.example). Los valores reales viven en **App Service → Configuration** (o Key Vault) y en **GitHub Secrets**; nunca en el repo.
+Ver [.env.example](.env.example). Los valores reales viven en **App Service → Configuration** y en **GitHub Secrets**.
 
 | Variable | Uso |
 |---|---|
-| `COSMOS_ENDPOINT`, `COSMOS_KEY`, `COSMOS_DATABASE` | Conexión a Cosmos DB |
+| `COSMOS_ENDPOINT`, `COSMOS_KEY`, `COSMOS_DATABASE` | Conexión a Azure Cosmos DB (`skillgrow`) |
 | `APIM_CERT_CHECK` | `true` en Azure; `false` solo en local/tests |
-| `APIM_CERT_THUMBPRINT` | Huella SHA-1 del certificado de cliente de APIM |
-| `CORE_API_URL`, `APIM_SUBSCRIPTION_KEY` | Llamada a MS1 al crear reseñas |
+| `APIM_CERT_THUMBPRINT` | Huella SHA-1 del certificado cliente de APIM |
+| `CORE_API_URL`, `APIM_SUBSCRIPTION_KEY` | Llamadas síncronas a `ms-core` vía APIM |
 
 ## Seguridad
 
-1. **Red:** access restriction en App Service, solo la IP de APIM.
-2. **Certificado:** `clientCertMode=Required` + este servicio compara la huella SHA-1 de `X-ARR-ClientCert` con `APIM_CERT_THUMBPRINT` ([security.py](app/core/security.py)). Aplica a **todas** las rutas, `/health` incluido; si falta configuración falla cerrado (403).
-3. **Identidad:** APIM valida el JWT y envía `X-User-Id` (y `X-User-Role`); el backend no decodifica el token.
+1. **Red:** restricción de acceso en App Service para aceptar únicamente la IP de APIM.
+2. **Certificado mutuo (mTLS):** `clientCertMode=Required` + validación de huella SHA-1 de `X-ARR-ClientCert` en [security.py](app/core/security.py) (incluye `/health`; falla cerrado con `403` si falta configuración).
+3. **Identidad:** APIM valida el JWT emitido por `ms-core` y propaga `X-User-Id` y `X-User-Role`; el backend nunca decodifica el token ni confía en IDs enviados en el body.
 
-## Convenciones (doc 03)
+## Modelo de datos y justificación (Cosmos DB NoSQL)
 
-- JSON en camelCase; fechas siempre como **epoch en milisegundos** (`*EpochMs`, `int`); IDs UUID v4.
-- Errores: `{ code, message, details[], timestampEpochMs, path }` — nunca se devuelve el stack trace.
+Se eligió **Azure Cosmos DB (API NoSQL)** para MS2 porque el catálogo de mentorías, reseñas, reportes e historial de búsqueda tienen esquemas flexibles/anidados (área, lista de habilidades, precios opcionales, objeto `mentor` desnormalizado) y consultas orientadas a lectura rápida con baja latencia sin joins relacionales.
 
-## Modelo de datos (Cosmos DB)
-
-| Contenedor | Partition key | Motivo |
+| Contenedor | Partition key | Justificación de particionamiento |
 |---|---|---|
-| `catalog` | `/type` | Leer todas las áreas o habilidades en una partición |
-| `services` | `/mentorId` | Gestión por dueño agrupada |
-| `reviews` | `/mentorId` | Reseñas y resumen siempre por mentor |
-| `reports` | `/status` | Bandeja de moderación por estado |
-| `searchHistory` | `/userId` | Historial aislado por usuario |
+| `catalog` | `/type` | Agrupa áreas (`area`) y habilidades (`skill`) en dos particiones limpias para lectura completa en 1 consulta |
+| `services` | `/mentorId` | Todas las operaciones del dueño (`/v1/me/services`, recálculo de rating del mentor) van a una sola partición |
+| `reviews` | `/mentorId` | Las reseñas y el resumen de calificación siempre se consultan por mentor en una única partición |
+| `reports` | `/status` | La bandeja de moderación filtra por estado (`pendiente`, `en_revision`, `resuelto`, `descartado`). Al cambiar el `status` de un reporte, el repositorio crea el documento en la nueva partición y luego elimina el anterior (`create-before-delete`) porque Cosmos no permite mutar la partition key con `replace_item` |
+| `searchHistory` | `/userId` | Aísla las búsquedas recientes por usuario para alimentar `/v1/recommendations` en 1 partición |
 
-Crear la estructura y cargar datos: `python -m scripts.seed_cosmos --fixtures-dir data/seed/sample` (requiere credenciales en `.env`). `data/seed/sample` son datos de **ejemplo**; los fixtures reales de la Fase I se exportan a JSON con el mismo formato.
+## Despliegue y Postman
 
-## Despliegue
-
-Pipeline en [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml): lint + tests en cada PR; en push a `main` despliega a App Service y hace *smoke test* de `/dominio/v1/health` **vía APIM**.
-
-Secrets del repo: `AZURE_WEBAPP_PUBLISH_PROFILE`, `APIM_BASE_URL`, `APIM_SUBSCRIPTION_KEY`.
-Comando de arranque en App Service: `gunicorn -k uvicorn.workers.UvicornWorker app.main:app`.
-
-## Flujo de trabajo
-
-`main` protegida; ramas `feat/*`, `fix/*`, `docs/*`; commits convencionales; PRs pequeños con la [plantilla](.github/pull_request_template.md).
+- Pipeline en [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml): `ruff` + `pytest` en cada PR; en push a `main` despliega a `app-skillgrow-dominio-kay` y verifica `/dominio/v1/health` vía APIM.
+- Secrets requeridos en GitHub: `AZURE_WEBAPP_PUBLISH_PROFILE`, `APIM_BASE_URL`, `APIM_SUBSCRIPTION_KEY`.
+- Comando de arranque en App Service: `gunicorn -k uvicorn.workers.UvicornWorker app.main:app`.
+- Colección Postman lista para unir con `unir-colecciones.py`: [docs/postman/03-MS2-Dominio.postman_collection.json](docs/postman/03-MS2-Dominio.postman_collection.json).
