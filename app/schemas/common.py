@@ -25,3 +25,12 @@ class ErrorResponse(CamelModel):
     details: list[ErrorDetail] = []
     timestamp_epoch_ms: int
     path: str
+
+
+class Page[T](CamelModel):
+    """Envoltorio de listas paginadas: { totalRecords, page, pageSize, items }."""
+
+    total_records: int
+    page: int
+    page_size: int
+    items: list[T]

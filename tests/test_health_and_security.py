@@ -11,6 +11,11 @@ def test_health_ok(client):
     assert isinstance(body["timestampEpochMs"], int)
 
 
+def test_health_is_also_served_under_v1_for_apim(client):
+    r = client.get("/v1/health")
+    assert r.status_code == 200 and r.json()["status"] == "UP"
+
+
 def test_unknown_route_uses_standard_error_format(client):
     r = client.get("/no-existe")
     assert r.status_code == 404

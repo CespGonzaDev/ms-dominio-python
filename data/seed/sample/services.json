@@ -1,0 +1,36 @@
+[
+  {
+    "id": "sample-service-1",
+    "mentorId": "sample-mentor-1",
+    "mentor": { "id": "sample-mentor-1", "name": "Mentor de ejemplo 1" },
+    "title": "Introducción a Python (ejemplo)",
+    "description": "Servicio de ejemplo para desarrollo local",
+    "areaId": "sample-tech",
+    "skillIds": ["sample-python"],
+    "type": "individual",
+    "modality": "online",
+    "platforms": ["zoom"],
+    "durationMinutes": 60,
+    "capacity": 1,
+    "price": 0,
+    "availableDays": ["monday", "wednesday"],
+    "rating": 4.5,
+    "reviewCount": 2
+  },
+  {
+    "id": "sample-service-2",
+    "mentorId": "sample-mentor-2",
+    "mentor": { "id": "sample-mentor-2", "name": "Mentor de ejemplo 2" },
+    "title": "Conversación en inglés (ejemplo)",
+    "description": "Servicio de ejemplo para desarrollo local",
+    "areaId": "sample-lang",
+    "skillIds": ["sample-english"],
+    "type": "group",
+    "modality": "online",
+    "platforms": ["meet"],
+    "durationMinutes": 45,
+    "capacity": 5,
+    "price": 15,
+    "availableDays": ["friday"]
+  }
+]

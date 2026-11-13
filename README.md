@@ -9,7 +9,28 @@ Microservicio del **dominio** de SkillGrow: catálogo de áreas y habilidades, s
 | Hosting | Azure App Service (Linux) |
 | Entrada pública | Solo vía Azure API Management: `https://skillgrow-org.azure-api.net/dominio/v1/...` |
 
-> Estado: **Fase A** (esqueleto, seguridad, errores estándar, `/health`, CI/CD). Los endpoints de negocio se agregan en las fases B y C.
+> Estado: **Fase B** (catálogo + CRUD y búsqueda de servicios). Descubrimiento, reseñas y reportes se agregan en la fase C.
+
+## Endpoints
+
+Rutas internas; en APIM se publican con el prefijo `/dominio` (ej. `/dominio/v1/services`). Todas (salvo `health`) exigen `X-User-Id`, que APIM extrae del JWT.
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | `/v1/health` (y `/health`) | Salud |
+| GET | `/v1/catalog/areas` | Áreas |
+| GET | `/v1/catalog/skills?areaId=` | Habilidades |
+| GET | `/v1/services` | Búsqueda: `search, skillId, areaId, modality, type, minRating, priceMax, free, day, sort (recent\|rating\|priceAsc\|priceDesc), page, pageSize`. Solo servicios `active`. Respuesta `{ totalRecords, page, pageSize, items }` |
+| GET | `/v1/services/{id}` | Detalle (cualquier estado; lo usa MS1 al reservar) |
+| GET | `/v1/me/services` | Servicios del usuario |
+| POST | `/v1/services` | Crear (201). El mentor sale de `X-User-Id`, nunca del body |
+| PUT | `/v1/services/{id}` | Reemplazar campos editables (solo el dueño, si no 403) |
+| PATCH | `/v1/services/{id}/status` | `active \| paused \| inactive` (solo el dueño) |
+| DELETE | `/v1/services/{id}` | 204 (solo el dueño) |
+
+### Supuestos que hay que confirmar contra la Fase I
+
+La forma de un servicio (campos, valores de `type`/`modality`, formato de `availableDays`, valores de `sort`) se dedujo del reparto; el contrato real de la Fase I no estaba disponible. Ver [app/schemas/service.py](app/schemas/service.py).
 
 ## Arquitectura (capas simples)
 
@@ -72,7 +93,7 @@ Ver [.env.example](.env.example). Los valores reales viven en **App Service → 
 | `reports` | `/status` | Bandeja de moderación por estado |
 | `searchHistory` | `/userId` | Historial aislado por usuario |
 
-Crear la estructura: `python -m scripts.seed_cosmos` (requiere credenciales en `.env`).
+Crear la estructura y cargar datos: `python -m scripts.seed_cosmos --fixtures-dir data/seed/sample` (requiere credenciales en `.env`). `data/seed/sample` son datos de **ejemplo**; los fixtures reales de la Fase I se exportan a JSON con el mismo formato.
 
 ## Despliegue
 

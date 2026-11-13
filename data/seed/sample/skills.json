@@ -1,0 +1,5 @@
+[
+  { "id": "sample-python", "name": "Python (ejemplo)", "areaId": "sample-tech" },
+  { "id": "sample-sql", "name": "SQL (ejemplo)", "areaId": "sample-tech" },
+  { "id": "sample-english", "name": "Inglés (ejemplo)", "areaId": "sample-lang" }
+]
