@@ -1,0 +1,335 @@
+[
+  {
+    "id": "usr_001",
+    "fullName": "Valeria Rojas",
+    "avatarUrl": null,
+    "ratingAverage": 4.7,
+    "ratingCount": 3,
+    "headline": "Asistente de laboratorio",
+    "institution": "TEC",
+    "skills": [
+      "Java",
+      "SQL"
+    ],
+    "completedSessions": 4,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_002",
+    "fullName": "Andrea Vargas",
+    "avatarUrl": "/avatars/andrea-vargas.jpg",
+    "ratingAverage": 4.9,
+    "ratingCount": 25,
+    "headline": "Tutora de Programación",
+    "institution": "TEC",
+    "skills": [
+      "Python",
+      "SQL",
+      "Data Analytics"
+    ],
+    "completedSessions": 33,
+    "activeServices": 3
+  },
+  {
+    "id": "usr_005",
+    "fullName": "Carlos Ramírez",
+    "avatarUrl": "/avatars/carlos-ramirez.jpg",
+    "ratingAverage": 4.8,
+    "ratingCount": 18,
+    "headline": "Practicante de desarrollo",
+    "institution": "UCR",
+    "skills": [
+      "SQL",
+      "Java",
+      "APIs REST"
+    ],
+    "completedSessions": 30,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_006",
+    "fullName": "Sofía Hernández",
+    "avatarUrl": "/avatars/sofia-hernandez.jpg",
+    "ratingAverage": 4.9,
+    "ratingCount": 31,
+    "headline": "Asistente de cátedra",
+    "institution": "UNA",
+    "skills": [
+      "Técnicas de conteo",
+      "Probabilidad",
+      "Matemática discreta",
+      "Derivadas"
+    ],
+    "completedSessions": 45,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_007",
+    "fullName": "Lucía Morales",
+    "avatarUrl": null,
+    "ratingAverage": 4.8,
+    "ratingCount": 16,
+    "headline": "Estudiante asistente",
+    "institution": "UCR",
+    "skills": [
+      "Lógica proposicional",
+      "Matemática discreta"
+    ],
+    "completedSessions": 22,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_008",
+    "fullName": "Diego Campos",
+    "avatarUrl": null,
+    "ratingAverage": 4.7,
+    "ratingCount": 14,
+    "headline": "Desarrollador junior",
+    "institution": "TEC",
+    "skills": [
+      "Java",
+      "Programación orientada a objetos"
+    ],
+    "completedSessions": 19,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_009",
+    "fullName": "Mariana Solís",
+    "avatarUrl": null,
+    "ratingAverage": 4.9,
+    "ratingCount": 21,
+    "headline": "Tutora",
+    "institution": "UNA",
+    "skills": [
+      "Límites",
+      "Derivadas",
+      "Integrales"
+    ],
+    "completedSessions": 30,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_010",
+    "fullName": "José Pablo Mora",
+    "avatarUrl": null,
+    "ratingAverage": 4.6,
+    "ratingCount": 9,
+    "headline": "Asistente de laboratorio",
+    "institution": "TEC",
+    "skills": [
+      "Circuitos",
+      "Arduino"
+    ],
+    "completedSessions": 12,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_011",
+    "fullName": "Daniela Chaves",
+    "avatarUrl": null,
+    "ratingAverage": 4.8,
+    "ratingCount": 12,
+    "headline": "Asistente de investigación",
+    "institution": "UCR",
+    "skills": [
+      "Estadística descriptiva",
+      "R"
+    ],
+    "completedSessions": 15,
+    "activeServices": 1
+  },
+  {
+    "id": "usr_012",
+    "fullName": "Andrés Quesada",
+    "avatarUrl": null,
+    "ratingAverage": 4.7,
+    "ratingCount": 15,
+    "headline": "Desarrollador frontend",
+    "institution": "TEC",
+    "skills": [
+      "JavaScript",
+      "React"
+    ],
+    "completedSessions": 20,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_013",
+    "fullName": "Fernanda Araya",
+    "avatarUrl": null,
+    "ratingAverage": 4.9,
+    "ratingCount": 26,
+    "headline": "Profesora de inglés",
+    "institution": "UCR",
+    "skills": [
+      "Inglés conversacional",
+      "Preparación TOEFL"
+    ],
+    "completedSessions": 34,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_014",
+    "fullName": "Luis Diego Solano",
+    "avatarUrl": null,
+    "ratingAverage": 4.5,
+    "ratingCount": 8,
+    "headline": "Estudiante asistente",
+    "institution": "UNA",
+    "skills": [
+      "Física I",
+      "Mecánica"
+    ],
+    "completedSessions": 10,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_015",
+    "fullName": "Paola Jiménez",
+    "avatarUrl": null,
+    "ratingAverage": 4.8,
+    "ratingCount": 11,
+    "headline": "Diseñadora UX freelance",
+    "institution": "TEC",
+    "skills": [
+      "Figma",
+      "Diseño UX"
+    ],
+    "completedSessions": 14,
+    "activeServices": 1
+  },
+  {
+    "id": "usr_016",
+    "fullName": "Kevin Alvarado",
+    "avatarUrl": null,
+    "ratingAverage": 4.4,
+    "ratingCount": 7,
+    "headline": "Asistente de laboratorio",
+    "institution": "UCR",
+    "skills": [
+      "Química general"
+    ],
+    "completedSessions": 9,
+    "activeServices": 1
+  },
+  {
+    "id": "usr_017",
+    "fullName": "Natalia Brenes",
+    "avatarUrl": null,
+    "ratingAverage": 4.7,
+    "ratingCount": 10,
+    "headline": "Asistente contable",
+    "institution": "TEC",
+    "skills": [
+      "Contabilidad",
+      "Excel"
+    ],
+    "completedSessions": 13,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_018",
+    "fullName": "Sebastián Vega",
+    "avatarUrl": null,
+    "ratingAverage": 4.6,
+    "ratingCount": 13,
+    "headline": "Entrenador de programación competitiva",
+    "institution": "UCR",
+    "skills": [
+      "Algoritmos",
+      "C++"
+    ],
+    "completedSessions": 17,
+    "activeServices": 2
+  },
+  {
+    "id": "usr_019",
+    "fullName": "Gabriela Rojas",
+    "avatarUrl": null,
+    "ratingAverage": 4.5,
+    "ratingCount": 6,
+    "headline": "Estudiante asistente",
+    "institution": "UNA",
+    "skills": [
+      "Microeconomía"
+    ],
+    "completedSessions": 8,
+    "activeServices": 1
+  },
+  {
+    "id": "usr_020",
+    "fullName": "Mauricio Castro",
+    "avatarUrl": null,
+    "ratingAverage": 4.2,
+    "ratingCount": 5,
+    "headline": "Soporte de TI",
+    "institution": "TEC",
+    "skills": [
+      "Linux",
+      "Redes"
+    ],
+    "completedSessions": 7,
+    "activeServices": 1
+  },
+  {
+    "id": "usr_021",
+    "fullName": "Valentina Herrera",
+    "avatarUrl": null,
+    "ratingAverage": 4.8,
+    "ratingCount": 9,
+    "headline": "Analista de datos junior",
+    "institution": "UCR",
+    "skills": [
+      "Python",
+      "Pandas"
+    ],
+    "completedSessions": 11,
+    "activeServices": 1
+  },
+  {
+    "id": "usr_022",
+    "fullName": "Esteban Murillo",
+    "avatarUrl": null,
+    "ratingAverage": 4.6,
+    "ratingCount": 8,
+    "headline": "Desarrollador",
+    "institution": "UNA",
+    "skills": [
+      "PostgreSQL",
+      "Modelado de datos"
+    ],
+    "completedSessions": 10,
+    "activeServices": 1
+  },
+  {
+    "id": "usr_023",
+    "fullName": "Camila Ulate",
+    "avatarUrl": null,
+    "ratingAverage": 4.7,
+    "ratingCount": 7,
+    "headline": "DevOps practicante",
+    "institution": "TEC",
+    "skills": [
+      "Git",
+      "Docker"
+    ],
+    "completedSessions": 9,
+    "activeServices": 1
+  },
+  {
+    "id": "usr_024",
+    "fullName": "Ricardo Soto",
+    "avatarUrl": null,
+    "ratingAverage": 4.6,
+    "ratingCount": 10,
+    "headline": "Tutor",
+    "institution": "UCR",
+    "skills": [
+      "Álgebra lineal",
+      "Precálculo"
+    ],
+    "completedSessions": 12,
+    "activeServices": 1
+  }
+]

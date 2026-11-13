@@ -1,0 +1,98 @@
+[
+  {
+    "id": "rep_001",
+    "reporterId": "usr_001",
+    "reporter": {
+      "id": "usr_001",
+      "fullName": "Valeria Rojas",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 3
+    },
+    "targetType": "service",
+    "targetId": "srv_030",
+    "targetLabel": "Terminal de Linux sin miedo",
+    "reason": "spam",
+    "description": "El enlace de la descripción lleva a una página de publicidad.",
+    "status": "pendiente",
+    "createdAtEpochMs": 1794416400000
+  },
+  {
+    "id": "rep_002",
+    "reporterId": "usr_038",
+    "reporter": {
+      "id": "usr_038",
+      "fullName": "Hannia Cordero",
+      "avatarUrl": null,
+      "ratingAverage": 0,
+      "ratingCount": 0
+    },
+    "targetType": "user",
+    "targetId": "usr_044",
+    "targetLabel": "Allison Villalobos",
+    "reason": "acoso",
+    "description": "Envió mensajes inapropiados por correo después de la sesión.",
+    "status": "en_revision",
+    "createdAtEpochMs": 1794258000000
+  },
+  {
+    "id": "rep_003",
+    "reporterId": "usr_039",
+    "reporter": {
+      "id": "usr_039",
+      "fullName": "Pablo Arias",
+      "avatarUrl": null,
+      "ratingAverage": 0,
+      "ratingCount": 0
+    },
+    "targetType": "review",
+    "targetId": "rev_010",
+    "targetLabel": "Reseña a Andrea Vargas",
+    "reason": "contenido_inapropiado",
+    "description": "La reseña incluye datos personales.",
+    "status": "resuelto",
+    "createdAtEpochMs": 1793718000000,
+    "resolvedAtEpochMs": 1793894400000,
+    "resolution": "Se revisó y no incumple las normas.",
+    "actionTaken": "ninguna"
+  },
+  {
+    "id": "rep_004",
+    "reporterId": "usr_040",
+    "reporter": {
+      "id": "usr_040",
+      "fullName": "Ximena Guzmán",
+      "avatarUrl": null,
+      "ratingAverage": 0,
+      "ratingCount": 0
+    },
+    "targetType": "service",
+    "targetId": "srv_020",
+    "targetLabel": "Preparación TOEFL",
+    "reason": "fraude",
+    "description": "Promete certificación oficial que no existe.",
+    "status": "pendiente",
+    "createdAtEpochMs": 1794528000000
+  },
+  {
+    "id": "rep_005",
+    "reporterId": "usr_041",
+    "reporter": {
+      "id": "usr_041",
+      "fullName": "Andrey Calderón",
+      "avatarUrl": null,
+      "ratingAverage": 0,
+      "ratingCount": 0
+    },
+    "targetType": "service",
+    "targetId": "srv_030",
+    "targetLabel": "Terminal de Linux sin miedo",
+    "reason": "otro",
+    "description": "La plataforma indicada no funciona.",
+    "status": "descartado",
+    "createdAtEpochMs": 1793296800000,
+    "resolvedAtEpochMs": 1793383200000,
+    "resolution": "El mentor actualizó la plataforma.",
+    "actionTaken": "ninguna"
+  }
+]

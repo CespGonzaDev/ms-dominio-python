@@ -25,3 +25,22 @@ class ErrorResponse(CamelModel):
     details: list[ErrorDetail] = []
     timestamp_epoch_ms: int
     path: str
+
+
+class UserSummary(CamelModel):
+    """Resumen público de usuario compartido con Frontend y MS1."""
+
+    id: str
+    full_name: str
+    avatar_url: str | None = None
+    rating_average: float = 0.0
+    rating_count: int = 0
+
+
+class Page[T](CamelModel):
+    """Envoltorio de listas paginadas: { totalRecords, page, pageSize, items }."""
+
+    total_records: int
+    page: int
+    page_size: int
+    items: list[T]

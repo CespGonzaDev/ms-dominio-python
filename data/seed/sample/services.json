@@ -1,0 +1,52 @@
+[
+  {
+    "id": "sample-service-1",
+    "mentorId": "sample-mentor-1",
+    "mentor": {
+      "id": "sample-mentor-1",
+      "fullName": "Mentor de ejemplo 1",
+      "avatarUrl": null,
+      "ratingAverage": 4.5,
+      "ratingCount": 2
+    },
+    "title": "Introducción a Python (ejemplo)",
+    "description": "Servicio de ejemplo para desarrollo local",
+    "areaId": "sample-tech",
+    "area": { "id": "sample-tech", "name": "Tecnología (ejemplo)" },
+    "skillIds": ["sample-python"],
+    "skills": [{ "id": "sample-python", "name": "Python (ejemplo)", "areaId": "sample-tech" }],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": ["zoom"],
+    "price": null,
+    "availabilitySummary": "Lun, Mié",
+    "availableDays": [1, 3]
+  },
+  {
+    "id": "sample-service-2",
+    "mentorId": "sample-mentor-2",
+    "mentor": {
+      "id": "sample-mentor-2",
+      "fullName": "Mentor de ejemplo 2",
+      "avatarUrl": null,
+      "ratingAverage": 0.0,
+      "ratingCount": 0
+    },
+    "title": "Conversación en inglés (ejemplo)",
+    "description": "Servicio de ejemplo para desarrollo local",
+    "areaId": "sample-lang",
+    "area": { "id": "sample-lang", "name": "Idiomas (ejemplo)" },
+    "skillIds": ["sample-english"],
+    "skills": [{ "id": "sample-english", "name": "Inglés (ejemplo)", "areaId": "sample-lang" }],
+    "durationMinutes": 45,
+    "type": "grupal",
+    "capacity": 5,
+    "modality": "virtual",
+    "platforms": ["google_meet"],
+    "price": { "amount": 5000, "currency": "CRC" },
+    "availabilitySummary": "Vie",
+    "availableDays": [5]
+  }
+]

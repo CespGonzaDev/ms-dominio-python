@@ -32,7 +32,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     env:
-      APP_NAME: app-ms-dominio-skillgrow # ajustar al nombre real que cree P4
+      APP_NAME: app-skillgrow-dominio-kay
     steps:
       - uses: actions/checkout@v4
       - name: Empaquetar

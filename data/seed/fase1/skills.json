@@ -1,0 +1,202 @@
+[
+  {
+    "id": "sk_python",
+    "name": "Python",
+    "areaId": "area_prog"
+  },
+  {
+    "id": "sk_java",
+    "name": "Java",
+    "areaId": "area_prog"
+  },
+  {
+    "id": "sk_js",
+    "name": "JavaScript",
+    "areaId": "area_prog"
+  },
+  {
+    "id": "sk_react",
+    "name": "React",
+    "areaId": "area_prog"
+  },
+  {
+    "id": "sk_cpp",
+    "name": "C++",
+    "areaId": "area_prog"
+  },
+  {
+    "id": "sk_poo",
+    "name": "Programación orientada a objetos",
+    "areaId": "area_prog"
+  },
+  {
+    "id": "sk_algo",
+    "name": "Algoritmos",
+    "areaId": "area_prog"
+  },
+  {
+    "id": "sk_apis",
+    "name": "APIs REST",
+    "areaId": "area_prog"
+  },
+  {
+    "id": "sk_git",
+    "name": "Git",
+    "areaId": "area_inf"
+  },
+  {
+    "id": "sk_docker",
+    "name": "Docker",
+    "areaId": "area_inf"
+  },
+  {
+    "id": "sk_linux",
+    "name": "Linux",
+    "areaId": "area_inf"
+  },
+  {
+    "id": "sk_redes",
+    "name": "Redes",
+    "areaId": "area_inf"
+  },
+  {
+    "id": "sk_sql",
+    "name": "SQL",
+    "areaId": "area_db"
+  },
+  {
+    "id": "sk_postgres",
+    "name": "PostgreSQL",
+    "areaId": "area_db"
+  },
+  {
+    "id": "sk_modelado",
+    "name": "Modelado de datos",
+    "areaId": "area_db"
+  },
+  {
+    "id": "sk_analytics",
+    "name": "Data Analytics",
+    "areaId": "area_est"
+  },
+  {
+    "id": "sk_pandas",
+    "name": "Pandas",
+    "areaId": "area_est"
+  },
+  {
+    "id": "sk_estad",
+    "name": "Estadística descriptiva",
+    "areaId": "area_est"
+  },
+  {
+    "id": "sk_r",
+    "name": "R",
+    "areaId": "area_est"
+  },
+  {
+    "id": "sk_prob",
+    "name": "Probabilidad",
+    "areaId": "area_disc"
+  },
+  {
+    "id": "sk_conteo",
+    "name": "Técnicas de conteo",
+    "areaId": "area_disc"
+  },
+  {
+    "id": "sk_logica",
+    "name": "Lógica proposicional",
+    "areaId": "area_disc"
+  },
+  {
+    "id": "sk_discreta",
+    "name": "Matemática discreta",
+    "areaId": "area_disc"
+  },
+  {
+    "id": "sk_limites",
+    "name": "Límites",
+    "areaId": "area_calc"
+  },
+  {
+    "id": "sk_derivadas",
+    "name": "Derivadas",
+    "areaId": "area_calc"
+  },
+  {
+    "id": "sk_integrales",
+    "name": "Integrales",
+    "areaId": "area_calc"
+  },
+  {
+    "id": "sk_algebra",
+    "name": "Álgebra lineal",
+    "areaId": "area_mat"
+  },
+  {
+    "id": "sk_precalc",
+    "name": "Precálculo",
+    "areaId": "area_mat"
+  },
+  {
+    "id": "sk_fisica1",
+    "name": "Física I",
+    "areaId": "area_fis"
+  },
+  {
+    "id": "sk_mecanica",
+    "name": "Mecánica",
+    "areaId": "area_fis"
+  },
+  {
+    "id": "sk_quimica",
+    "name": "Química general",
+    "areaId": "area_qui"
+  },
+  {
+    "id": "sk_ingles",
+    "name": "Inglés conversacional",
+    "areaId": "area_idi"
+  },
+  {
+    "id": "sk_toefl",
+    "name": "Preparación TOEFL",
+    "areaId": "area_idi"
+  },
+  {
+    "id": "sk_figma",
+    "name": "Figma",
+    "areaId": "area_dis"
+  },
+  {
+    "id": "sk_ux",
+    "name": "Diseño UX",
+    "areaId": "area_dis"
+  },
+  {
+    "id": "sk_conta",
+    "name": "Contabilidad",
+    "areaId": "area_adm"
+  },
+  {
+    "id": "sk_excel",
+    "name": "Excel",
+    "areaId": "area_adm"
+  },
+  {
+    "id": "sk_circuitos",
+    "name": "Circuitos",
+    "areaId": "area_ele"
+  },
+  {
+    "id": "sk_arduino",
+    "name": "Arduino",
+    "areaId": "area_ele"
+  },
+  {
+    "id": "sk_micro",
+    "name": "Microeconomía",
+    "areaId": "area_eco"
+  }
+]

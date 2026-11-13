@@ -1,0 +1,1858 @@
+[
+  {
+    "id": "srv_001",
+    "mentorId": "usr_002",
+    "mentor": {
+      "id": "usr_002",
+      "fullName": "Andrea Vargas",
+      "avatarUrl": "/avatars/andrea-vargas.jpg",
+      "ratingAverage": 4.9,
+      "ratingCount": 25
+    },
+    "mentorHeadline": "Tutora de Programación",
+    "mentorInstitution": "TEC",
+    "title": "Python: funciones y datos",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Veremos funciones, listas, diccionarios y lectura de archivos.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_python"
+    ],
+    "skills": [
+      {
+        "id": "sk_python",
+        "name": "Python",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet",
+      "zoom"
+    ],
+    "price": {
+      "amount": 5000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Mié, Sáb",
+    "availableDays": [
+      1,
+      3,
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1779030000000,
+    "updatedAtEpochMs": 1789398000000
+  },
+  {
+    "id": "srv_002",
+    "mentorId": "usr_005",
+    "mentor": {
+      "id": "usr_005",
+      "fullName": "Carlos Ramírez",
+      "avatarUrl": "/avatars/carlos-ramirez.jpg",
+      "ratingAverage": 4.8,
+      "ratingCount": 18
+    },
+    "mentorHeadline": "Practicante de desarrollo",
+    "mentorInstitution": "UCR",
+    "title": "SQL: consultas y joins",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. SELECT, JOIN, GROUP BY y subconsultas con bases reales.",
+    "areaId": "area_db",
+    "area": {
+      "id": "area_db",
+      "name": "Bases de datos"
+    },
+    "skillIds": [
+      "sk_sql"
+    ],
+    "skills": [
+      {
+        "id": "sk_sql",
+        "name": "SQL",
+        "areaId": "area_db"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "teams"
+    ],
+    "price": {
+      "amount": 6000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Jue",
+    "availableDays": [
+      2,
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1779289200000,
+    "updatedAtEpochMs": 1789484400000
+  },
+  {
+    "id": "srv_003",
+    "mentorId": "usr_006",
+    "mentor": {
+      "id": "usr_006",
+      "fullName": "Sofía Hernández",
+      "avatarUrl": "/avatars/sofia-hernandez.jpg",
+      "ratingAverage": 4.9,
+      "ratingCount": 31
+    },
+    "mentorHeadline": "Asistente de cátedra",
+    "mentorInstitution": "UNA",
+    "title": "Probabilidad: técnicas de conteo",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Permutaciones, combinaciones y principio de inclusión-exclusión.",
+    "areaId": "area_disc",
+    "area": {
+      "id": "area_disc",
+      "name": "Matemática discreta"
+    },
+    "skillIds": [
+      "sk_conteo",
+      "sk_prob"
+    ],
+    "skills": [
+      {
+        "id": "sk_conteo",
+        "name": "Técnicas de conteo",
+        "areaId": "area_disc"
+      },
+      {
+        "id": "sk_prob",
+        "name": "Probabilidad",
+        "areaId": "area_disc"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "grupal",
+    "capacity": 5,
+    "modality": "ambas",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 3500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mié, Vie",
+    "availableDays": [
+      3,
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1779548400000,
+    "updatedAtEpochMs": 1789570800000
+  },
+  {
+    "id": "srv_004",
+    "mentorId": "usr_007",
+    "mentor": {
+      "id": "usr_007",
+      "fullName": "Lucía Morales",
+      "avatarUrl": null,
+      "ratingAverage": 4.8,
+      "ratingCount": 16
+    },
+    "mentorHeadline": "Estudiante asistente",
+    "mentorInstitution": "UCR",
+    "title": "Inferencias y reglas de deducción",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Lógica proposicional, tablas de verdad y demostraciones.",
+    "areaId": "area_disc",
+    "area": {
+      "id": "area_disc",
+      "name": "Matemática discreta"
+    },
+    "skillIds": [
+      "sk_logica"
+    ],
+    "skills": [
+      {
+        "id": "sk_logica",
+        "name": "Lógica proposicional",
+        "areaId": "area_disc"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "zoom"
+    ],
+    "price": {
+      "amount": 4500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Jue",
+    "availableDays": [
+      1,
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1779807600000,
+    "updatedAtEpochMs": 1789657200000
+  },
+  {
+    "id": "srv_005",
+    "mentorId": "usr_008",
+    "mentor": {
+      "id": "usr_008",
+      "fullName": "Diego Campos",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 14
+    },
+    "mentorHeadline": "Desarrollador junior",
+    "mentorInstitution": "TEC",
+    "title": "Java: clases y objetos",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Clases, herencia, interfaces y buenas prácticas de POO.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_java",
+      "sk_poo"
+    ],
+    "skills": [
+      {
+        "id": "sk_java",
+        "name": "Java",
+        "areaId": "area_prog"
+      },
+      {
+        "id": "sk_poo",
+        "name": "Programación orientada a objetos",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 5500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Vie",
+    "availableDays": [
+      2,
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1780066800000,
+    "updatedAtEpochMs": 1789743600000
+  },
+  {
+    "id": "srv_006",
+    "mentorId": "usr_009",
+    "mentor": {
+      "id": "usr_009",
+      "fullName": "Mariana Solís",
+      "avatarUrl": null,
+      "ratingAverage": 4.9,
+      "ratingCount": 21
+    },
+    "mentorHeadline": "Tutora",
+    "mentorInstitution": "UNA",
+    "title": "Límites y derivadas",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Límites, continuidad y reglas de derivación con GeoGebra.",
+    "areaId": "area_calc",
+    "area": {
+      "id": "area_calc",
+      "name": "Cálculo"
+    },
+    "skillIds": [
+      "sk_limites",
+      "sk_derivadas"
+    ],
+    "skills": [
+      {
+        "id": "sk_limites",
+        "name": "Límites",
+        "areaId": "area_calc"
+      },
+      {
+        "id": "sk_derivadas",
+        "name": "Derivadas",
+        "areaId": "area_calc"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "grupal",
+    "capacity": 6,
+    "modality": "virtual",
+    "platforms": [
+      "zoom"
+    ],
+    "price": {
+      "amount": 3000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mié, Sáb",
+    "availableDays": [
+      3,
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1780326000000,
+    "updatedAtEpochMs": 1789830000000
+  },
+  {
+    "id": "srv_007",
+    "mentorId": "usr_002",
+    "mentor": {
+      "id": "usr_002",
+      "fullName": "Andrea Vargas",
+      "avatarUrl": "/avatars/andrea-vargas.jpg",
+      "ratingAverage": 4.9,
+      "ratingCount": 25
+    },
+    "mentorHeadline": "Tutora de Programación",
+    "mentorInstitution": "TEC",
+    "title": "SQL para análisis de datos",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Consultas de agregación orientadas a reportes.",
+    "areaId": "area_db",
+    "area": {
+      "id": "area_db",
+      "name": "Bases de datos"
+    },
+    "skillIds": [
+      "sk_sql",
+      "sk_analytics"
+    ],
+    "skills": [
+      {
+        "id": "sk_sql",
+        "name": "SQL",
+        "areaId": "area_db"
+      },
+      {
+        "id": "sk_analytics",
+        "name": "Data Analytics",
+        "areaId": "area_est"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 5000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Mié, Sáb",
+    "availableDays": [
+      1,
+      3,
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1780585200000,
+    "updatedAtEpochMs": 1789916400000
+  },
+  {
+    "id": "srv_008",
+    "mentorId": "usr_002",
+    "mentor": {
+      "id": "usr_002",
+      "fullName": "Andrea Vargas",
+      "avatarUrl": "/avatars/andrea-vargas.jpg",
+      "ratingAverage": 4.9,
+      "ratingCount": 25
+    },
+    "mentorHeadline": "Tutora de Programación",
+    "mentorInstitution": "TEC",
+    "title": "Introducción a Data Analytics",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Del dato crudo al gráfico: limpieza y visualización.",
+    "areaId": "area_est",
+    "area": {
+      "id": "area_est",
+      "name": "Estadística"
+    },
+    "skillIds": [
+      "sk_analytics",
+      "sk_python"
+    ],
+    "skills": [
+      {
+        "id": "sk_analytics",
+        "name": "Data Analytics",
+        "areaId": "area_est"
+      },
+      {
+        "id": "sk_python",
+        "name": "Python",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "grupal",
+    "capacity": 4,
+    "modality": "ambas",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": null,
+    "availabilitySummary": "Lun, Mié, Sáb",
+    "availableDays": [
+      1,
+      3,
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1780844400000,
+    "updatedAtEpochMs": 1790002800000
+  },
+  {
+    "id": "srv_009",
+    "mentorId": "usr_005",
+    "mentor": {
+      "id": "usr_005",
+      "fullName": "Carlos Ramírez",
+      "avatarUrl": "/avatars/carlos-ramirez.jpg",
+      "ratingAverage": 4.8,
+      "ratingCount": 18
+    },
+    "mentorHeadline": "Practicante de desarrollo",
+    "mentorInstitution": "UCR",
+    "title": "APIs REST con Java",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Diseña y prueba endpoints con Spring Boot.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_apis",
+      "sk_java"
+    ],
+    "skills": [
+      {
+        "id": "sk_apis",
+        "name": "APIs REST",
+        "areaId": "area_prog"
+      },
+      {
+        "id": "sk_java",
+        "name": "Java",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "teams",
+      "google_meet"
+    ],
+    "price": {
+      "amount": 7000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Jue",
+    "availableDays": [
+      2,
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1781103600000,
+    "updatedAtEpochMs": 1790089200000
+  },
+  {
+    "id": "srv_010",
+    "mentorId": "usr_006",
+    "mentor": {
+      "id": "usr_006",
+      "fullName": "Sofía Hernández",
+      "avatarUrl": "/avatars/sofia-hernandez.jpg",
+      "ratingAverage": 4.9,
+      "ratingCount": 31
+    },
+    "mentorHeadline": "Asistente de cátedra",
+    "mentorInstitution": "UNA",
+    "title": "Matemática discreta: repaso de parcial",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Repaso intensivo con ejercicios tipo examen.",
+    "areaId": "area_disc",
+    "area": {
+      "id": "area_disc",
+      "name": "Matemática discreta"
+    },
+    "skillIds": [
+      "sk_discreta"
+    ],
+    "skills": [
+      {
+        "id": "sk_discreta",
+        "name": "Matemática discreta",
+        "areaId": "area_disc"
+      }
+    ],
+    "durationMinutes": 120,
+    "type": "grupal",
+    "capacity": 8,
+    "modality": "presencial",
+    "platforms": [],
+    "price": {
+      "amount": 2500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mié, Vie",
+    "availableDays": [
+      3,
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1781362800000,
+    "updatedAtEpochMs": 1790175600000
+  },
+  {
+    "id": "srv_011",
+    "mentorId": "usr_007",
+    "mentor": {
+      "id": "usr_007",
+      "fullName": "Lucía Morales",
+      "avatarUrl": null,
+      "ratingAverage": 4.8,
+      "ratingCount": 16
+    },
+    "mentorHeadline": "Estudiante asistente",
+    "mentorInstitution": "UCR",
+    "title": "Conjuntos y relaciones",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Operaciones con conjuntos, relaciones y funciones.",
+    "areaId": "area_disc",
+    "area": {
+      "id": "area_disc",
+      "name": "Matemática discreta"
+    },
+    "skillIds": [
+      "sk_discreta"
+    ],
+    "skills": [
+      {
+        "id": "sk_discreta",
+        "name": "Matemática discreta",
+        "areaId": "area_disc"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "presencial",
+    "platforms": [],
+    "price": {
+      "amount": 4000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Jue",
+    "availableDays": [
+      1,
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1781622000000,
+    "updatedAtEpochMs": 1790262000000
+  },
+  {
+    "id": "srv_012",
+    "mentorId": "usr_008",
+    "mentor": {
+      "id": "usr_008",
+      "fullName": "Diego Campos",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 14
+    },
+    "mentorHeadline": "Desarrollador junior",
+    "mentorInstitution": "TEC",
+    "title": "Estructuras de datos en Java",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Listas, pilas, colas y árboles implementados en Java.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_java"
+    ],
+    "skills": [
+      {
+        "id": "sk_java",
+        "name": "Java",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 6000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Vie",
+    "availableDays": [
+      2,
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1781881200000,
+    "updatedAtEpochMs": 1790348400000
+  },
+  {
+    "id": "srv_013",
+    "mentorId": "usr_009",
+    "mentor": {
+      "id": "usr_009",
+      "fullName": "Mariana Solís",
+      "avatarUrl": null,
+      "ratingAverage": 4.9,
+      "ratingCount": 21
+    },
+    "mentorHeadline": "Tutora",
+    "mentorInstitution": "UNA",
+    "title": "Integrales para principiantes",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Integrales indefinidas y técnicas de sustitución.",
+    "areaId": "area_calc",
+    "area": {
+      "id": "area_calc",
+      "name": "Cálculo"
+    },
+    "skillIds": [
+      "sk_integrales"
+    ],
+    "skills": [
+      {
+        "id": "sk_integrales",
+        "name": "Integrales",
+        "areaId": "area_calc"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "ambas",
+    "platforms": [
+      "zoom"
+    ],
+    "price": {
+      "amount": 4000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mié, Sáb",
+    "availableDays": [
+      3,
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1782140400000,
+    "updatedAtEpochMs": 1790434800000
+  },
+  {
+    "id": "srv_014",
+    "mentorId": "usr_010",
+    "mentor": {
+      "id": "usr_010",
+      "fullName": "José Pablo Mora",
+      "avatarUrl": null,
+      "ratingAverage": 4.6,
+      "ratingCount": 9
+    },
+    "mentorHeadline": "Asistente de laboratorio",
+    "mentorInstitution": "TEC",
+    "title": "Arduino desde cero",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Tu primer circuito con sensores y actuadores.",
+    "areaId": "area_ele",
+    "area": {
+      "id": "area_ele",
+      "name": "Electrónica"
+    },
+    "skillIds": [
+      "sk_arduino"
+    ],
+    "skills": [
+      {
+        "id": "sk_arduino",
+        "name": "Arduino",
+        "areaId": "area_ele"
+      }
+    ],
+    "durationMinutes": 120,
+    "type": "grupal",
+    "capacity": 4,
+    "modality": "presencial",
+    "platforms": [],
+    "price": {
+      "amount": 5000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar",
+    "availableDays": [
+      2
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1782399600000,
+    "updatedAtEpochMs": 1790521200000
+  },
+  {
+    "id": "srv_015",
+    "mentorId": "usr_010",
+    "mentor": {
+      "id": "usr_010",
+      "fullName": "José Pablo Mora",
+      "avatarUrl": null,
+      "ratingAverage": 4.6,
+      "ratingCount": 9
+    },
+    "mentorHeadline": "Asistente de laboratorio",
+    "mentorInstitution": "TEC",
+    "title": "Análisis de circuitos DC",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Leyes de Kirchhoff, mallas y nodos.",
+    "areaId": "area_ele",
+    "area": {
+      "id": "area_ele",
+      "name": "Electrónica"
+    },
+    "skillIds": [
+      "sk_circuitos"
+    ],
+    "skills": [
+      {
+        "id": "sk_circuitos",
+        "name": "Circuitos",
+        "areaId": "area_ele"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "teams"
+    ],
+    "price": {
+      "amount": 4500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar",
+    "availableDays": [
+      2
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1782658800000,
+    "updatedAtEpochMs": 1790607600000
+  },
+  {
+    "id": "srv_016",
+    "mentorId": "usr_011",
+    "mentor": {
+      "id": "usr_011",
+      "fullName": "Daniela Chaves",
+      "avatarUrl": null,
+      "ratingAverage": 4.8,
+      "ratingCount": 12
+    },
+    "mentorHeadline": "Asistente de investigación",
+    "mentorInstitution": "UCR",
+    "title": "Estadística descriptiva con R",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Medidas de tendencia, dispersión y gráficos en R.",
+    "areaId": "area_est",
+    "area": {
+      "id": "area_est",
+      "name": "Estadística"
+    },
+    "skillIds": [
+      "sk_estad",
+      "sk_r"
+    ],
+    "skills": [
+      {
+        "id": "sk_estad",
+        "name": "Estadística descriptiva",
+        "areaId": "area_est"
+      },
+      {
+        "id": "sk_r",
+        "name": "R",
+        "areaId": "area_est"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 5000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Jue",
+    "availableDays": [
+      1,
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1782918000000,
+    "updatedAtEpochMs": 1790694000000
+  },
+  {
+    "id": "srv_017",
+    "mentorId": "usr_012",
+    "mentor": {
+      "id": "usr_012",
+      "fullName": "Andrés Quesada",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 15
+    },
+    "mentorHeadline": "Desarrollador frontend",
+    "mentorInstitution": "TEC",
+    "title": "React: componentes y estado",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Hooks, props y manejo de estado en proyectos reales.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_react",
+      "sk_js"
+    ],
+    "skills": [
+      {
+        "id": "sk_react",
+        "name": "React",
+        "areaId": "area_prog"
+      },
+      {
+        "id": "sk_js",
+        "name": "JavaScript",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet",
+      "zoom"
+    ],
+    "price": {
+      "amount": 7000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Sáb",
+    "availableDays": [
+      2,
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1783177200000,
+    "updatedAtEpochMs": 1790780400000
+  },
+  {
+    "id": "srv_018",
+    "mentorId": "usr_012",
+    "mentor": {
+      "id": "usr_012",
+      "fullName": "Andrés Quesada",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 15
+    },
+    "mentorHeadline": "Desarrollador frontend",
+    "mentorInstitution": "TEC",
+    "title": "JavaScript moderno",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Promesas, async/await y módulos.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_js"
+    ],
+    "skills": [
+      {
+        "id": "sk_js",
+        "name": "JavaScript",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "grupal",
+    "capacity": 6,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 3000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Sáb",
+    "availableDays": [
+      2,
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1783436400000,
+    "updatedAtEpochMs": 1790866800000
+  },
+  {
+    "id": "srv_019",
+    "mentorId": "usr_013",
+    "mentor": {
+      "id": "usr_013",
+      "fullName": "Fernanda Araya",
+      "avatarUrl": null,
+      "ratingAverage": 4.9,
+      "ratingCount": 26
+    },
+    "mentorHeadline": "Profesora de inglés",
+    "mentorInstitution": "UCR",
+    "title": "Inglés conversacional",
+    "description": "Gana fluidez con conversaciones guiadas sobre temas académicos.",
+    "areaId": "area_idi",
+    "area": {
+      "id": "area_idi",
+      "name": "Idiomas"
+    },
+    "skillIds": [
+      "sk_ingles"
+    ],
+    "skills": [
+      {
+        "id": "sk_ingles",
+        "name": "Inglés conversacional",
+        "areaId": "area_idi"
+      }
+    ],
+    "durationMinutes": 45,
+    "type": "grupal",
+    "capacity": 5,
+    "modality": "virtual",
+    "platforms": [
+      "zoom"
+    ],
+    "price": {
+      "amount": 2500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Mié, Vie",
+    "availableDays": [
+      1,
+      3,
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1783695600000,
+    "updatedAtEpochMs": 1790953200000
+  },
+  {
+    "id": "srv_020",
+    "mentorId": "usr_013",
+    "mentor": {
+      "id": "usr_013",
+      "fullName": "Fernanda Araya",
+      "avatarUrl": null,
+      "ratingAverage": 4.9,
+      "ratingCount": 26
+    },
+    "mentorHeadline": "Profesora de inglés",
+    "mentorInstitution": "UCR",
+    "title": "Preparación TOEFL",
+    "description": "Estrategias por sección y simulacros cronometrados.",
+    "areaId": "area_idi",
+    "area": {
+      "id": "area_idi",
+      "name": "Idiomas"
+    },
+    "skillIds": [
+      "sk_toefl"
+    ],
+    "skills": [
+      {
+        "id": "sk_toefl",
+        "name": "Preparación TOEFL",
+        "areaId": "area_idi"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "zoom"
+    ],
+    "price": {
+      "amount": 8000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Mié, Vie",
+    "availableDays": [
+      1,
+      3,
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1783954800000,
+    "updatedAtEpochMs": 1791039600000
+  },
+  {
+    "id": "srv_021",
+    "mentorId": "usr_014",
+    "mentor": {
+      "id": "usr_014",
+      "fullName": "Luis Diego Solano",
+      "avatarUrl": null,
+      "ratingAverage": 4.5,
+      "ratingCount": 8
+    },
+    "mentorHeadline": "Estudiante asistente",
+    "mentorInstitution": "UNA",
+    "title": "Física I: cinemática",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. MRU, MRUA y caída libre.",
+    "areaId": "area_fis",
+    "area": {
+      "id": "area_fis",
+      "name": "Física"
+    },
+    "skillIds": [
+      "sk_fisica1"
+    ],
+    "skills": [
+      {
+        "id": "sk_fisica1",
+        "name": "Física I",
+        "areaId": "area_fis"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "presencial",
+    "platforms": [],
+    "price": {
+      "amount": 4000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mié",
+    "availableDays": [
+      3
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1784214000000,
+    "updatedAtEpochMs": 1791126000000
+  },
+  {
+    "id": "srv_022",
+    "mentorId": "usr_014",
+    "mentor": {
+      "id": "usr_014",
+      "fullName": "Luis Diego Solano",
+      "avatarUrl": null,
+      "ratingAverage": 4.5,
+      "ratingCount": 8
+    },
+    "mentorHeadline": "Estudiante asistente",
+    "mentorInstitution": "UNA",
+    "title": "Dinámica y leyes de Newton",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Diagramas de cuerpo libre y fricción.",
+    "areaId": "area_fis",
+    "area": {
+      "id": "area_fis",
+      "name": "Física"
+    },
+    "skillIds": [
+      "sk_mecanica"
+    ],
+    "skills": [
+      {
+        "id": "sk_mecanica",
+        "name": "Mecánica",
+        "areaId": "area_fis"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "grupal",
+    "capacity": 4,
+    "modality": "ambas",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 3000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mié",
+    "availableDays": [
+      3
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1784473200000,
+    "updatedAtEpochMs": 1791212400000
+  },
+  {
+    "id": "srv_023",
+    "mentorId": "usr_015",
+    "mentor": {
+      "id": "usr_015",
+      "fullName": "Paola Jiménez",
+      "avatarUrl": null,
+      "ratingAverage": 4.8,
+      "ratingCount": 11
+    },
+    "mentorHeadline": "Diseñadora UX freelance",
+    "mentorInstitution": "TEC",
+    "title": "Prototipos en Figma",
+    "description": "Del wireframe al prototipo interactivo para tu proyecto.",
+    "areaId": "area_dis",
+    "area": {
+      "id": "area_dis",
+      "name": "Diseño"
+    },
+    "skillIds": [
+      "sk_figma",
+      "sk_ux"
+    ],
+    "skills": [
+      {
+        "id": "sk_figma",
+        "name": "Figma",
+        "areaId": "area_dis"
+      },
+      {
+        "id": "sk_ux",
+        "name": "Diseño UX",
+        "areaId": "area_dis"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 6000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Jue",
+    "availableDays": [
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1784732400000,
+    "updatedAtEpochMs": 1791298800000
+  },
+  {
+    "id": "srv_024",
+    "mentorId": "usr_016",
+    "mentor": {
+      "id": "usr_016",
+      "fullName": "Kevin Alvarado",
+      "avatarUrl": null,
+      "ratingAverage": 4.4,
+      "ratingCount": 7
+    },
+    "mentorHeadline": "Asistente de laboratorio",
+    "mentorInstitution": "UCR",
+    "title": "Química general: estequiometría",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Balanceo, moles y reactivo limitante.",
+    "areaId": "area_qui",
+    "area": {
+      "id": "area_qui",
+      "name": "Química"
+    },
+    "skillIds": [
+      "sk_quimica"
+    ],
+    "skills": [
+      {
+        "id": "sk_quimica",
+        "name": "Química general",
+        "areaId": "area_qui"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "presencial",
+    "platforms": [],
+    "price": {
+      "amount": 3500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar",
+    "availableDays": [
+      2
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1784991600000,
+    "updatedAtEpochMs": 1791385200000
+  },
+  {
+    "id": "srv_025",
+    "mentorId": "usr_017",
+    "mentor": {
+      "id": "usr_017",
+      "fullName": "Natalia Brenes",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 10
+    },
+    "mentorHeadline": "Asistente contable",
+    "mentorInstitution": "TEC",
+    "title": "Contabilidad básica",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Asientos, mayor y estados financieros.",
+    "areaId": "area_adm",
+    "area": {
+      "id": "area_adm",
+      "name": "Administración"
+    },
+    "skillIds": [
+      "sk_conta"
+    ],
+    "skills": [
+      {
+        "id": "sk_conta",
+        "name": "Contabilidad",
+        "areaId": "area_adm"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "teams"
+    ],
+    "price": {
+      "amount": 4000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Sáb",
+    "availableDays": [
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1785250800000,
+    "updatedAtEpochMs": 1791471600000
+  },
+  {
+    "id": "srv_026",
+    "mentorId": "usr_017",
+    "mentor": {
+      "id": "usr_017",
+      "fullName": "Natalia Brenes",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 10
+    },
+    "mentorHeadline": "Asistente contable",
+    "mentorInstitution": "TEC",
+    "title": "Excel para cursos",
+    "description": "Fórmulas, tablas dinámicas y gráficos útiles.",
+    "areaId": "area_adm",
+    "area": {
+      "id": "area_adm",
+      "name": "Administración"
+    },
+    "skillIds": [
+      "sk_excel"
+    ],
+    "skills": [
+      {
+        "id": "sk_excel",
+        "name": "Excel",
+        "areaId": "area_adm"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "grupal",
+    "capacity": 6,
+    "modality": "virtual",
+    "platforms": [
+      "teams"
+    ],
+    "price": null,
+    "availabilitySummary": "Sáb",
+    "availableDays": [
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1785510000000,
+    "updatedAtEpochMs": 1791558000000
+  },
+  {
+    "id": "srv_027",
+    "mentorId": "usr_018",
+    "mentor": {
+      "id": "usr_018",
+      "fullName": "Sebastián Vega",
+      "avatarUrl": null,
+      "ratingAverage": 4.6,
+      "ratingCount": 13
+    },
+    "mentorHeadline": "Entrenador de programación competitiva",
+    "mentorInstitution": "UCR",
+    "title": "Algoritmos y complejidad",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Big-O, ordenamientos y búsqueda.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_algo"
+    ],
+    "skills": [
+      {
+        "id": "sk_algo",
+        "name": "Algoritmos",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "zoom"
+    ],
+    "price": {
+      "amount": 6500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Vie",
+    "availableDays": [
+      1,
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1785769200000,
+    "updatedAtEpochMs": 1791644400000
+  },
+  {
+    "id": "srv_028",
+    "mentorId": "usr_018",
+    "mentor": {
+      "id": "usr_018",
+      "fullName": "Sebastián Vega",
+      "avatarUrl": null,
+      "ratingAverage": 4.6,
+      "ratingCount": 13
+    },
+    "mentorHeadline": "Entrenador de programación competitiva",
+    "mentorInstitution": "UCR",
+    "title": "C++ para programación competitiva",
+    "description": "STL, entrada rápida y problemas clásicos.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_cpp",
+      "sk_algo"
+    ],
+    "skills": [
+      {
+        "id": "sk_cpp",
+        "name": "C++",
+        "areaId": "area_prog"
+      },
+      {
+        "id": "sk_algo",
+        "name": "Algoritmos",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 120,
+    "type": "grupal",
+    "capacity": 6,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 3000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun, Vie",
+    "availableDays": [
+      1,
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1786028400000,
+    "updatedAtEpochMs": 1791730800000
+  },
+  {
+    "id": "srv_029",
+    "mentorId": "usr_019",
+    "mentor": {
+      "id": "usr_019",
+      "fullName": "Gabriela Rojas",
+      "avatarUrl": null,
+      "ratingAverage": 4.5,
+      "ratingCount": 6
+    },
+    "mentorHeadline": "Estudiante asistente",
+    "mentorInstitution": "UNA",
+    "title": "Microeconomía: oferta y demanda",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Equilibrio, elasticidad y excedentes.",
+    "areaId": "area_eco",
+    "area": {
+      "id": "area_eco",
+      "name": "Economía"
+    },
+    "skillIds": [
+      "sk_micro"
+    ],
+    "skills": [
+      {
+        "id": "sk_micro",
+        "name": "Microeconomía",
+        "areaId": "area_eco"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 3500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar",
+    "availableDays": [
+      2
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1786287600000,
+    "updatedAtEpochMs": 1791817200000
+  },
+  {
+    "id": "srv_030",
+    "mentorId": "usr_020",
+    "mentor": {
+      "id": "usr_020",
+      "fullName": "Mauricio Castro",
+      "avatarUrl": null,
+      "ratingAverage": 4.2,
+      "ratingCount": 5
+    },
+    "mentorHeadline": "Soporte de TI",
+    "mentorInstitution": "TEC",
+    "title": "Terminal de Linux sin miedo",
+    "description": "Comandos esenciales, permisos y scripts básicos.",
+    "areaId": "area_inf",
+    "area": {
+      "id": "area_inf",
+      "name": "Infraestructura"
+    },
+    "skillIds": [
+      "sk_linux"
+    ],
+    "skills": [
+      {
+        "id": "sk_linux",
+        "name": "Linux",
+        "areaId": "area_inf"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "grupal",
+    "capacity": 5,
+    "modality": "virtual",
+    "platforms": [
+      "otra"
+    ],
+    "price": null,
+    "availabilitySummary": "Mié",
+    "availableDays": [
+      3
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1786546800000,
+    "updatedAtEpochMs": 1791903600000
+  },
+  {
+    "id": "srv_031",
+    "mentorId": "usr_021",
+    "mentor": {
+      "id": "usr_021",
+      "fullName": "Valentina Herrera",
+      "avatarUrl": null,
+      "ratingAverage": 4.8,
+      "ratingCount": 9
+    },
+    "mentorHeadline": "Analista de datos junior",
+    "mentorInstitution": "UCR",
+    "title": "Pandas para análisis de datos",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. DataFrames, filtros y agrupaciones.",
+    "areaId": "area_est",
+    "area": {
+      "id": "area_est",
+      "name": "Estadística"
+    },
+    "skillIds": [
+      "sk_pandas",
+      "sk_python"
+    ],
+    "skills": [
+      {
+        "id": "sk_pandas",
+        "name": "Pandas",
+        "areaId": "area_est"
+      },
+      {
+        "id": "sk_python",
+        "name": "Python",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 6000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Jue",
+    "availableDays": [
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1786806000000,
+    "updatedAtEpochMs": 1789398000000
+  },
+  {
+    "id": "srv_032",
+    "mentorId": "usr_022",
+    "mentor": {
+      "id": "usr_022",
+      "fullName": "Esteban Murillo",
+      "avatarUrl": null,
+      "ratingAverage": 4.6,
+      "ratingCount": 8
+    },
+    "mentorHeadline": "Desarrollador",
+    "mentorInstitution": "UNA",
+    "title": "Modelado de bases de datos",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Diagramas ER y normalización hasta 3FN.",
+    "areaId": "area_db",
+    "area": {
+      "id": "area_db",
+      "name": "Bases de datos"
+    },
+    "skillIds": [
+      "sk_modelado",
+      "sk_postgres"
+    ],
+    "skills": [
+      {
+        "id": "sk_modelado",
+        "name": "Modelado de datos",
+        "areaId": "area_db"
+      },
+      {
+        "id": "sk_postgres",
+        "name": "PostgreSQL",
+        "areaId": "area_db"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "ambas",
+    "platforms": [
+      "teams"
+    ],
+    "price": {
+      "amount": 5500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Lun",
+    "availableDays": [
+      1
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1787065200000,
+    "updatedAtEpochMs": 1789484400000
+  },
+  {
+    "id": "srv_033",
+    "mentorId": "usr_023",
+    "mentor": {
+      "id": "usr_023",
+      "fullName": "Camila Ulate",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 7
+    },
+    "mentorHeadline": "DevOps practicante",
+    "mentorInstitution": "TEC",
+    "title": "Git en equipo",
+    "description": "Ramas, pull requests y resolución de conflictos.",
+    "areaId": "area_inf",
+    "area": {
+      "id": "area_inf",
+      "name": "Infraestructura"
+    },
+    "skillIds": [
+      "sk_git"
+    ],
+    "skills": [
+      {
+        "id": "sk_git",
+        "name": "Git",
+        "areaId": "area_inf"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "grupal",
+    "capacity": 6,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 2000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Vie",
+    "availableDays": [
+      5
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1787324400000,
+    "updatedAtEpochMs": 1789570800000
+  },
+  {
+    "id": "srv_034",
+    "mentorId": "usr_024",
+    "mentor": {
+      "id": "usr_024",
+      "fullName": "Ricardo Soto",
+      "avatarUrl": null,
+      "ratingAverage": 4.6,
+      "ratingCount": 10
+    },
+    "mentorHeadline": "Tutor",
+    "mentorInstitution": "UCR",
+    "title": "Álgebra lineal: matrices",
+    "description": "Practica con ejercicios de tu curso y resuelve tus dudas paso a paso. Sistemas de ecuaciones, determinantes e inversas.",
+    "areaId": "area_mat",
+    "area": {
+      "id": "area_mat",
+      "name": "Matemática"
+    },
+    "skillIds": [
+      "sk_algebra"
+    ],
+    "skills": [
+      {
+        "id": "sk_algebra",
+        "name": "Álgebra lineal",
+        "areaId": "area_mat"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "presencial",
+    "platforms": [],
+    "price": {
+      "amount": 4000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Sáb",
+    "availableDays": [
+      2,
+      6
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1787583600000,
+    "updatedAtEpochMs": 1789657200000
+  },
+  {
+    "id": "srv_035",
+    "mentorId": "usr_001",
+    "mentor": {
+      "id": "usr_001",
+      "fullName": "Valeria Rojas",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 3
+    },
+    "mentorHeadline": "Asistente de laboratorio",
+    "mentorInstitution": "TEC",
+    "title": "Java para principiantes",
+    "description": "Primeros pasos en Java: variables, condicionales y ciclos.",
+    "areaId": "area_prog",
+    "area": {
+      "id": "area_prog",
+      "name": "Programación"
+    },
+    "skillIds": [
+      "sk_java"
+    ],
+    "skills": [
+      {
+        "id": "sk_java",
+        "name": "Java",
+        "areaId": "area_prog"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "individual",
+    "capacity": 1,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": {
+      "amount": 3000,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Jue",
+    "availableDays": [
+      2,
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1787842800000,
+    "updatedAtEpochMs": 1789743600000
+  },
+  {
+    "id": "srv_036",
+    "mentorId": "usr_001",
+    "mentor": {
+      "id": "usr_001",
+      "fullName": "Valeria Rojas",
+      "avatarUrl": null,
+      "ratingAverage": 4.7,
+      "ratingCount": 3
+    },
+    "mentorHeadline": "Asistente de laboratorio",
+    "mentorInstitution": "TEC",
+    "title": "SQL desde cero",
+    "description": "Consultas básicas para tu primer curso de bases de datos.",
+    "areaId": "area_db",
+    "area": {
+      "id": "area_db",
+      "name": "Bases de datos"
+    },
+    "skillIds": [
+      "sk_sql"
+    ],
+    "skills": [
+      {
+        "id": "sk_sql",
+        "name": "SQL",
+        "areaId": "area_db"
+      }
+    ],
+    "durationMinutes": 60,
+    "type": "grupal",
+    "capacity": 4,
+    "modality": "virtual",
+    "platforms": [
+      "google_meet"
+    ],
+    "price": null,
+    "availabilitySummary": "Mar, Jue",
+    "availableDays": [
+      2,
+      4
+    ],
+    "status": "activo",
+    "createdAtEpochMs": 1788102000000,
+    "updatedAtEpochMs": 1789830000000
+  },
+  {
+    "id": "srv_037",
+    "mentorId": "usr_024",
+    "mentor": {
+      "id": "usr_024",
+      "fullName": "Ricardo Soto",
+      "avatarUrl": null,
+      "ratingAverage": 4.6,
+      "ratingCount": 10
+    },
+    "mentorHeadline": "Tutor",
+    "mentorInstitution": "UCR",
+    "title": "Precálculo intensivo",
+    "description": "Funciones, trigonometría y logaritmos.",
+    "areaId": "area_mat",
+    "area": {
+      "id": "area_mat",
+      "name": "Matemática"
+    },
+    "skillIds": [
+      "sk_precalc"
+    ],
+    "skills": [
+      {
+        "id": "sk_precalc",
+        "name": "Precálculo",
+        "areaId": "area_mat"
+      }
+    ],
+    "durationMinutes": 90,
+    "type": "grupal",
+    "capacity": 6,
+    "modality": "virtual",
+    "platforms": [
+      "zoom"
+    ],
+    "price": {
+      "amount": 2500,
+      "currency": "CRC"
+    },
+    "availabilitySummary": "Mar, Sáb",
+    "availableDays": [
+      2,
+      6
+    ],
+    "status": "inactivo",
+    "createdAtEpochMs": 1788361200000,
+    "updatedAtEpochMs": 1789916400000
+  }
+]

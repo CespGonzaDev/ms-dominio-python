@@ -18,6 +18,14 @@ CONTAINERS: dict[str, str] = {
 }
 
 
+_SYSTEM_FIELDS = ("_rid", "_self", "_etag", "_attachments", "_ts")
+
+
+def strip_system_fields(doc: dict) -> dict:
+    """Quita los campos internos de Cosmos antes de devolver un documento."""
+    return {k: v for k, v in doc.items() if k not in _SYSTEM_FIELDS}
+
+
 @lru_cache
 def get_database() -> DatabaseProxy:
     settings = get_settings()

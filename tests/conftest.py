@@ -7,8 +7,10 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
 from fastapi.testclient import TestClient
 
+from app.api.deps import get_catalog_repo, get_core_client, get_service_repo
 from app.core.config import Settings, get_settings
 from app.main import create_app
+from tests.fakes import FakeCatalogRepository, FakeCoreClient, FakeServiceRepository
 
 
 def _make_cert(cn: str) -> tuple[str, str]:
@@ -59,3 +61,58 @@ def make_client():
 def client(make_client) -> TestClient:
     """Cliente en modo local: sin validación de certificado."""
     return make_client(apim_cert_check=False)
+
+
+ALICE = {"X-User-Id": "alice", "X-User-Name": "Alice", "X-User-Avatar": "a.png"}
+BOB = {"X-User-Id": "bob", "X-User-Name": "Bob"}
+ADMIN = {"X-User-Id": "admin", "X-User-Role": "admin", "X-User-Name": "Admin"}
+
+
+@pytest.fixture
+def catalog_repo() -> FakeCatalogRepository:
+    return FakeCatalogRepository(
+        [
+            {"id": "area_prog", "type": "area", "name": "Programación"},
+            {"id": "area_idi", "type": "area", "name": "Idiomas"},
+            {"id": "sk_python", "type": "skill", "name": "Python", "areaId": "area_prog"},
+            {"id": "sk_sql", "type": "skill", "name": "SQL", "areaId": "area_prog"},
+            {"id": "sk_ingles", "type": "skill", "name": "Inglés", "areaId": "area_idi"},
+        ]
+    )
+
+
+@pytest.fixture
+def service_repo() -> FakeServiceRepository:
+    return FakeServiceRepository()
+
+
+@pytest.fixture
+def core_client() -> FakeCoreClient:
+    return FakeCoreClient()
+
+
+@pytest.fixture
+def api(make_client, catalog_repo, service_repo, core_client) -> TestClient:
+    """Cliente con repositorios falsos inyectados (sin Cosmos)."""
+    c = make_client(apim_cert_check=False)
+    c.app.dependency_overrides[get_catalog_repo] = lambda: catalog_repo
+    c.app.dependency_overrides[get_service_repo] = lambda: service_repo
+    c.app.dependency_overrides[get_core_client] = lambda: core_client
+    return c
+
+
+@pytest.fixture
+def service_payload() -> dict:
+    return {
+        "title": "Mentoría de Python",
+        "description": "Aprende lo básico paso a paso",
+        "areaId": "area_prog",
+        "skillIds": ["sk_python"],
+        "type": "individual",
+        "modality": "virtual",
+        "platforms": ["zoom"],
+        "durationMinutes": 60,
+        "capacity": 1,
+        "price": {"amount": 5000, "currency": "CRC"},
+        "availableDays": [1, 3],
+    }

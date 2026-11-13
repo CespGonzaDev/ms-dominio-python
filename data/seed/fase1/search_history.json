@@ -1,0 +1,9 @@
+[
+  {
+    "id": "sh_usr_001_1",
+    "userId": "usr_001",
+    "query": "SQL",
+    "skillId": "sk_sql",
+    "atEpochMs": 1794535200000
+  }
+]
