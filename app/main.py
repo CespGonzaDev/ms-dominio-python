@@ -2,7 +2,7 @@ import logging
 
 from fastapi import Depends, FastAPI
 
-from app.api.routes import catalog, health, services
+from app.api.routes import admin, catalog, discovery, health, reports, reviews, services
 from app.core.config import get_settings
 from app.core.errors import register_error_handlers
 from app.core.security import verify_apim_cert
@@ -27,6 +27,10 @@ def create_app() -> FastAPI:
     app.include_router(health.router, prefix="/v1")
     app.include_router(catalog.router)
     app.include_router(services.router)
+    app.include_router(discovery.router)
+    app.include_router(reviews.router)
+    app.include_router(reports.router)
+    app.include_router(admin.router)
     return app
 
 

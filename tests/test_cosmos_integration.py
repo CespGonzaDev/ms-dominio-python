@@ -145,3 +145,50 @@ def test_cosmos_service_crud_lifecycle(cosmos_client):
     deleted = cosmos_client.delete(f"/v1/services/{sid}", headers=h)
     assert deleted.status_code == 204
     assert cosmos_client.get(f"/v1/services/{sid}", headers=h).status_code == 404
+
+
+
+def test_cosmos_discovery_reviews_and_admin_partition_migration(cosmos_client):
+    user = {"X-User-Id": "it-user", "X-User-Name": "IT Learner"}
+    admin = {"X-User-Id": "it-admin", "X-User-Role": "admin", "X-User-Name": "IT Admin"}
+
+    assert cosmos_client.get("/v1/mentors", headers=user).status_code == 200
+    assert cosmos_client.get("/v1/feed", headers=user).status_code == 200
+    assert (
+        cosmos_client.post(
+            "/v1/me/search-history",
+            json={"query": "Python", "skillId": "it-py"},
+            headers=user,
+        ).status_code
+        == 204
+    )
+    recs = cosmos_client.get("/v1/recommendations", headers=user)
+    assert recs.status_code == 200 and len(recs.json()["items"]) >= 1
+
+    # Reportes y cambio de partition key (/status) en Cosmos real
+    rep = cosmos_client.post(
+        "/v1/reports",
+        json={
+            "targetType": "service",
+            "targetId": "it-svc-1",
+            "reason": "spam",
+            "description": "Prueba de migración de partición en Cosmos DB.",
+        },
+        headers=user,
+    )
+    assert rep.status_code == 201, rep.text
+    rid = rep.json()["id"]
+
+    moved = cosmos_client.patch(
+        f"/v1/admin/reports/{rid}",
+        json={"status": "en_revision", "resolution": "En análisis", "actionTaken": "ninguna"},
+        headers=admin,
+    )
+    assert moved.status_code == 200, moved.text
+    assert moved.json()["status"] == "en_revision"
+
+    in_old = cosmos_client.get("/v1/admin/reports?status=pendiente", headers=admin).json()["items"]
+    assert not any(r["id"] == rid for r in in_old)
+
+    stats = cosmos_client.get("/v1/admin/stats", headers=admin)
+    assert stats.status_code == 200 and stats.json()["services"]["total"] >= 1
