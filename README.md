@@ -61,6 +61,17 @@ ruff check .
 python -m scripts.export_openapi   # genera docs/openapi.json para importar en APIM
 ```
 
+Pruebas de integración contra el emulador local de Cosmos DB (Docker):
+
+```powershell
+docker run -d --name cosmos-emulator -p 8081:8081 -p 1234:1234 mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview
+$env:COSMOS_ENDPOINT="http://localhost:8081"
+$env:COSMOS_KEY="C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
+$env:COSMOS_DATABASE="skillgrow"
+python -m scripts.seed_cosmos --fixtures-dir data/seed/sample
+pytest -q
+```
+
 ## Variables de entorno
 
 Ver [.env.example](.env.example). Los valores reales viven en **App Service → Configuration** (o Key Vault) y en **GitHub Secrets**; nunca en el repo.
