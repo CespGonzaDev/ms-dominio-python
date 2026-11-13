@@ -84,6 +84,105 @@ class FakeServiceRepository:
         del self.docs[service_id]
 
 
+class FakeReviewRepository:
+    def __init__(self) -> None:
+        self.docs: dict[str, dict] = {}
+
+    def list_by_mentor(
+        self, mentor_id: str, *, rating: int | None = None, include_hidden: bool = False
+    ) -> list[dict]:
+        items = [
+            dict(d)
+            for d in self.docs.values()
+            if d["mentorId"] == mentor_id
+            and (include_hidden or not d.get("hidden"))
+            and (rating is None or d["rating"] == rating)
+        ]
+        items.sort(key=lambda d: -d["createdAtEpochMs"])
+        return items
+
+    def list_visible_ratings(self) -> list[int]:
+        return [int(d["rating"]) for d in self.docs.values() if not d.get("hidden")]
+
+    def get(self, review_id: str) -> dict | None:
+        doc = self.docs.get(review_id)
+        return dict(doc) if doc else None
+
+    def exists_for_session_learner(self, session_id: str, learner_id: str) -> bool:
+        return any(
+            d["sessionId"] == session_id and d["learnerId"] == learner_id
+            for d in self.docs.values()
+        )
+
+    def create(self, doc: dict) -> dict:
+        self.docs[doc["id"]] = dict(doc)
+        return dict(doc)
+
+    def replace(self, doc: dict) -> dict:
+        self.docs[doc["id"]] = dict(doc)
+        return dict(doc)
+
+
+class FakeReportRepository:
+    def __init__(self) -> None:
+        # Clave (status, id) para simular el comportamiento de partición /status en Cosmos.
+        self.docs: dict[tuple[str, str], dict] = {}
+
+    def list_filtered(
+        self,
+        *,
+        status: str | None = None,
+        target_type: str | None = None,
+        search: str | None = None,
+    ) -> list[dict]:
+        needle = search.strip().lower() if search else None
+        items = [
+            dict(d)
+            for (st, _), d in self.docs.items()
+            if (status is None or st == status)
+            and (target_type is None or d["targetType"] == target_type)
+            and (
+                needle is None
+                or needle
+                in (
+                    f"{d.get('targetLabel', '')} {d.get('description', '')}"
+                    f" {(d.get('reporter') or {}).get('fullName', '')}"
+                ).lower()
+            )
+        ]
+        items.sort(key=lambda d: -d["createdAtEpochMs"])
+        return items
+
+    def get(self, report_id: str) -> dict | None:
+        for (_, rid), doc in self.docs.items():
+            if rid == report_id:
+                return dict(doc)
+        return None
+
+    def create(self, doc: dict) -> dict:
+        self.docs[(doc["status"], doc["id"])] = dict(doc)
+        return dict(doc)
+
+    def save_with_status(self, old_status: str, doc: dict) -> dict:
+        self.docs.pop((old_status, doc["id"]), None)
+        self.docs[(doc["status"], doc["id"])] = dict(doc)
+        return dict(doc)
+
+
+class FakeSearchHistoryRepository:
+    def __init__(self) -> None:
+        self.docs: list[dict] = []
+
+    def list_by_user(self, user_id: str, limit: int = 20) -> list[dict]:
+        items = [dict(d) for d in self.docs if d["userId"] == user_id]
+        items.sort(key=lambda d: -d["atEpochMs"])
+        return items[:limit]
+
+    def create(self, doc: dict) -> dict:
+        self.docs.append(dict(doc))
+        return dict(doc)
+
+
 class FakeCoreClient:
     """Doble de ms-core configurable en tests."""
 

@@ -71,7 +71,14 @@ def main() -> None:
     services = get_container("services")
     areas = normalize_catalog(_load(args.fixtures_dir, "areas.json"), "area")
     skills = normalize_catalog(_load(args.fixtures_dir, "skills.json"), "skill")
-    svc_docs = [normalize_service(s) for s in _load(args.fixtures_dir, "services.json")]
+    mentors_meta = {m["id"]: m for m in _load(args.fixtures_dir, "mentors.json", required=False)}
+    svc_docs = []
+    for raw_svc in _load(args.fixtures_dir, "services.json"):
+        doc = normalize_service(raw_svc)
+        mentor_info = mentors_meta.get(doc["mentorId"])
+        if mentor_info and "mentorCompletedSessions" not in doc:
+            doc["mentorCompletedSessions"] = int(mentor_info.get("completedSessions", 0))
+        svc_docs.append(doc)
 
     for doc in [*areas, *skills]:
         catalog.upsert_item(doc)

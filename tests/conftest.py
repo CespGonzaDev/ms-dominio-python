@@ -7,10 +7,24 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
 from fastapi.testclient import TestClient
 
-from app.api.deps import get_catalog_repo, get_core_client, get_service_repo
+from app.api.deps import (
+    get_catalog_repo,
+    get_core_client,
+    get_report_repo,
+    get_review_repo,
+    get_search_history_repo,
+    get_service_repo,
+)
 from app.core.config import Settings, get_settings
 from app.main import create_app
-from tests.fakes import FakeCatalogRepository, FakeCoreClient, FakeServiceRepository
+from tests.fakes import (
+    FakeCatalogRepository,
+    FakeCoreClient,
+    FakeReportRepository,
+    FakeReviewRepository,
+    FakeSearchHistoryRepository,
+    FakeServiceRepository,
+)
 
 
 def _make_cert(cn: str) -> tuple[str, str]:
@@ -87,16 +101,42 @@ def service_repo() -> FakeServiceRepository:
 
 
 @pytest.fixture
+def review_repo() -> FakeReviewRepository:
+    return FakeReviewRepository()
+
+
+@pytest.fixture
+def report_repo() -> FakeReportRepository:
+    return FakeReportRepository()
+
+
+@pytest.fixture
+def history_repo() -> FakeSearchHistoryRepository:
+    return FakeSearchHistoryRepository()
+
+
+@pytest.fixture
 def core_client() -> FakeCoreClient:
     return FakeCoreClient()
 
 
 @pytest.fixture
-def api(make_client, catalog_repo, service_repo, core_client) -> TestClient:
+def api(
+    make_client,
+    catalog_repo,
+    service_repo,
+    review_repo,
+    report_repo,
+    history_repo,
+    core_client,
+) -> TestClient:
     """Cliente con repositorios falsos inyectados (sin Cosmos)."""
     c = make_client(apim_cert_check=False)
     c.app.dependency_overrides[get_catalog_repo] = lambda: catalog_repo
     c.app.dependency_overrides[get_service_repo] = lambda: service_repo
+    c.app.dependency_overrides[get_review_repo] = lambda: review_repo
+    c.app.dependency_overrides[get_report_repo] = lambda: report_repo
+    c.app.dependency_overrides[get_search_history_repo] = lambda: history_repo
     c.app.dependency_overrides[get_core_client] = lambda: core_client
     return c
 
