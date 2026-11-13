@@ -1,0 +1,1024 @@
+{
+  "info": {
+    "_postman_id": "2c8d3b80-7f53-4b88-9b7a-030303030303",
+    "name": "03-MS2-Dominio",
+    "description": "MS2 Dominio (Python/FastAPI + Cosmos DB) por APIM: catálogo, servicios, descubrimiento, reseñas, reportes y administración. Usa {{baseUrl}} = {{apim}}/dominio.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Salud",
+      "item": [
+        {
+          "name": "Health por APIM (público) -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('status ok y timestampEpochMs', () => {",
+                  "  pm.expect(b.status).to.eql('ok');",
+                  "  pm.expect(b.service).to.eql('ms-dominio-python');",
+                  "  pm.expect(b.timestampEpochMs).to.be.a('number').and.above(1e12);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "health"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Catálogo",
+      "item": [
+        {
+          "name": "Listar áreas de conocimiento -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const list = pm.response.json();",
+                  "pm.test('devuelve arreglo de áreas', () => {",
+                  "  pm.expect(list).to.be.an('array').that.is.not.empty;",
+                  "  pm.expect(list[0]).to.include.keys('id', 'name');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/catalog/areas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "catalog",
+                "areas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar habilidades filtradas por área y búsqueda -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const list = pm.response.json();",
+                  "pm.test('incluye sk_python', () => {",
+                  "  pm.expect(list.map(s => s.id)).to.include('sk_python');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/catalog/skills?areaId=area_prog&search=Py",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "catalog",
+                "skills"
+              ],
+              "query": [
+                {
+                  "key": "areaId",
+                  "value": "area_prog"
+                },
+                {
+                  "key": "search",
+                  "value": "Py"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Servicios",
+      "item": [
+        {
+          "name": "Buscar servicios con filtros -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const p = pm.response.json();",
+                  "pm.test('paginación estándar y elementos activos', () => {",
+                  "  pm.expect(p).to.include.keys('totalRecords', 'page', 'pageSize', 'items');",
+                  "  pm.expect(p.items).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/services?areaId=area_prog&modality=virtual&sort=rating:desc&page=1&pageSize=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "services"
+              ],
+              "query": [
+                {
+                  "key": "areaId",
+                  "value": "area_prog"
+                },
+                {
+                  "key": "modality",
+                  "value": "virtual"
+                },
+                {
+                  "key": "sort",
+                  "value": "rating:desc"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear servicio inválido (grupal con cupo 1) -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 400', () => pm.response.to.have.status(400));",
+                  "const b = pm.response.json();",
+                  "pm.test('error estándar VALIDATION_ERROR', () => {",
+                  "  pm.expect(b.code).to.eql('VALIDATION_ERROR');",
+                  "  pm.expect(b.timestampEpochMs).to.be.a('number').and.above(1e12);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "services"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Taller grupal inválido\",\n  \"description\": \"Debe fallar por cupo menor a 2\",\n  \"areaId\": \"area_prog\",\n  \"skillIds\": [\n    \"sk_python\"\n  ],\n  \"durationMinutes\": 60,\n  \"type\": \"grupal\",\n  \"capacity\": 1,\n  \"modality\": \"virtual\",\n  \"platforms\": [\n    \"zoom\"\n  ],\n  \"price\": {\n    \"amount\": 3000,\n    \"currency\": \"CRC\"\n  },\n  \"availableDays\": [\n    1\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Crear servicio de mentoría -> 201",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 201', () => pm.response.to.have.status(201));",
+                  "const s = pm.response.json();",
+                  "pm.test('campos del contrato y *EpochMs', () => {",
+                  "  pm.expect(s).to.include.keys('id', 'mentorId', 'mentor', 'title', 'area', 'skills', 'status', 'createdAtEpochMs', 'updatedAtEpochMs');",
+                  "  pm.expect(s.status).to.eql('activo');",
+                  "  pm.expect(s.createdAtEpochMs).to.be.a('number').and.above(1e12);",
+                  "});",
+                  "pm.collectionVariables.set('serviceId', s.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "services"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Mentoría Python Postman\",\n  \"description\": \"Sesión práctica de pruebas de API\",\n  \"areaId\": \"area_prog\",\n  \"skillIds\": [\n    \"sk_python\"\n  ],\n  \"durationMinutes\": 60,\n  \"type\": \"individual\",\n  \"capacity\": 1,\n  \"modality\": \"virtual\",\n  \"platforms\": [\n    \"google_meet\"\n  ],\n  \"price\": {\n    \"amount\": 5000,\n    \"currency\": \"CRC\"\n  },\n  \"availableDays\": [\n    1,\n    3\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Mis servicios (/me/services) -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const p = pm.response.json();",
+                  "pm.test('incluye el servicio recién creado', () => {",
+                  "  pm.expect(p.items.map(i => i.id)).to.include(pm.collectionVariables.get('serviceId'));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/me/services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "me",
+                "services"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Detalle de servicio por ID -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('id coincide', () => pm.expect(pm.response.json().id).to.eql(pm.collectionVariables.get('serviceId')));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/services/{{serviceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "services",
+                "{{serviceId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar servicio (PUT) -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('título actualizado', () => pm.expect(pm.response.json().title).to.eql('Mentoría Python Actualizada'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/services/{{serviceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "services",
+                "{{serviceId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Mentoría Python Actualizada\",\n  \"description\": \"Sesión actualizada desde Postman\",\n  \"areaId\": \"area_prog\",\n  \"skillIds\": [\n    \"sk_python\"\n  ],\n  \"durationMinutes\": 90,\n  \"type\": \"individual\",\n  \"capacity\": 1,\n  \"modality\": \"virtual\",\n  \"platforms\": [\n    \"zoom\"\n  ],\n  \"price\": null,\n  \"availableDays\": [\n    2,\n    4\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Cambiar estado del servicio (PATCH) -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estado inactivo', () => pm.expect(pm.response.json().status).to.eql('inactivo'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/services/{{serviceId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "services",
+                "{{serviceId}}",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"inactivo\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar servicio (DELETE) -> 204",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/services/{{serviceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "services",
+                "{{serviceId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Detalle de servicio inexistente -> 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 404', () => pm.response.to.have.status(404));",
+                  "pm.test('código NOT_FOUND', () => pm.expect(pm.response.json().code).to.eql('NOT_FOUND'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/services/srv-inexistente",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "services",
+                "srv-inexistente"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Descubrimiento",
+      "item": [
+        {
+          "name": "Listar mentores -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const p = pm.response.json();",
+                  "pm.test('contiene MentorCard', () => {",
+                  "  pm.expect(p.items).to.be.an('array').that.is.not.empty;",
+                  "  pm.expect(p.items[0]).to.include.keys('id', 'fullName', 'ratingAverage', 'activeServices');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/mentors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "mentors"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener feed mixto -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const p = pm.response.json();",
+                  "pm.test('items con kind service|mentor', () => {",
+                  "  pm.expect(p.items).to.be.an('array');",
+                  "  if (p.items.length) pm.expect(['service', 'mentor']).to.include(p.items[0].kind);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/feed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "feed"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Guardar historial de búsqueda -> 204",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/me/search-history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "me",
+                "search-history"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Python\",\n  \"skillId\": \"sk_python\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Obtener recomendaciones -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('devuelve lista items con reason', () => {",
+                  "  pm.expect(b.items).to.be.an('array');",
+                  "  if (b.items.length) pm.expect(b.items[0]).to.include.keys('service', 'reason');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/recommendations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "recommendations"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reseñas",
+      "item": [
+        {
+          "name": "Listar reseñas de un mentor -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estructura paginada', () => pm.expect(pm.response.json()).to.include.keys('totalRecords', 'items'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users/usr_002/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "usr_002",
+                "reviews"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Resumen de calificación de mentor -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const s = pm.response.json();",
+                  "pm.test('average, count y distribution 1..5', () => {",
+                  "  pm.expect(s).to.include.keys('average', 'count', 'distribution');",
+                  "  pm.expect(s.distribution).to.include.keys('1', '2', '3', '4', '5');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users/usr_002/rating-summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "usr_002",
+                "rating-summary"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reseñar sesión inexistente -> 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 404', () => pm.response.to.have.status(404));",
+                  "pm.test('código de error estándar', () => pm.expect(pm.response.json()).to.include.keys('code', 'message', 'timestampEpochMs'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/sessions/ses-inexistente/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "sessions",
+                "ses-inexistente",
+                "review"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Prueba de validación contra sesión inexistente.\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reportes y Administración",
+      "item": [
+        {
+          "name": "Crear reporte sobre servicio -> 201",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 201', () => pm.response.to.have.status(201));",
+                  "const r = pm.response.json();",
+                  "pm.test('estado pendiente y *EpochMs', () => {",
+                  "  pm.expect(r.status).to.eql('pendiente');",
+                  "  pm.expect(r.createdAtEpochMs).to.be.a('number').and.above(1e12);",
+                  "});",
+                  "pm.collectionVariables.set('reportId', r.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "reports"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetType\": \"service\",\n  \"targetId\": \"srv_001\",\n  \"reason\": \"otro\",\n  \"description\": \"Reporte de prueba automatizada desde Postman.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Usuario normal en /admin/reports -> 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/admin/reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "admin",
+                "reports"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin lista servicios para moderación -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('incluye reportsCount en items', () => {",
+                  "  const items = pm.response.json().items;",
+                  "  if (items.length) pm.expect(items[0]).to.include.keys('reportsCount');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/admin/services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "admin",
+                "services"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin actualiza estado de reporte -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const r = pm.response.json();",
+                  "pm.test('cambia a descartado con resolvedAtEpochMs', () => {",
+                  "  pm.expect(r.status).to.eql('descartado');",
+                  "  pm.expect(r.resolvedAtEpochMs).to.be.a('number').and.above(1e12);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/admin/reports/{{reportId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "admin",
+                "reports",
+                "{{reportId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"descartado\",\n  \"resolution\": \"Descartado tras prueba de Postman\",\n  \"actionTaken\": \"ninguna\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Admin estadísticas de dominio -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('incluye services, reviews y topAreas', () => {",
+                  "  pm.expect(pm.response.json()).to.include.keys('services', 'reviews', 'topAreas');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/admin/stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "admin",
+                "stats"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
