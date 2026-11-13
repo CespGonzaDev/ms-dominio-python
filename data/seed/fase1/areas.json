@@ -1,0 +1,58 @@
+[
+  {
+    "id": "area_prog",
+    "name": "Programación"
+  },
+  {
+    "id": "area_db",
+    "name": "Bases de datos"
+  },
+  {
+    "id": "area_mat",
+    "name": "Matemática"
+  },
+  {
+    "id": "area_disc",
+    "name": "Matemática discreta"
+  },
+  {
+    "id": "area_calc",
+    "name": "Cálculo"
+  },
+  {
+    "id": "area_est",
+    "name": "Estadística"
+  },
+  {
+    "id": "area_fis",
+    "name": "Física"
+  },
+  {
+    "id": "area_qui",
+    "name": "Química"
+  },
+  {
+    "id": "area_idi",
+    "name": "Idiomas"
+  },
+  {
+    "id": "area_dis",
+    "name": "Diseño"
+  },
+  {
+    "id": "area_adm",
+    "name": "Administración"
+  },
+  {
+    "id": "area_ele",
+    "name": "Electrónica"
+  },
+  {
+    "id": "area_inf",
+    "name": "Infraestructura"
+  },
+  {
+    "id": "area_eco",
+    "name": "Economía"
+  }
+]

@@ -23,5 +23,6 @@ def list_skills(
     _: User,
     svc: Svc,
     area_id: Annotated[str | None, Query(alias="areaId")] = None,
+    search: Annotated[str | None, Query(max_length=100)] = None,
 ):
-    return svc.list_skills(area_id)
+    return svc.list_skills(area_id=area_id, search=search)

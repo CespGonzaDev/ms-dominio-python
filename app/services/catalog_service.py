@@ -8,5 +8,5 @@ class CatalogService:
     def list_areas(self) -> list[dict]:
         return self._repo.list_by_type("area")
 
-    def list_skills(self, area_id: str | None = None) -> list[dict]:
-        return self._repo.list_by_type("skill", area_id)
+    def list_skills(self, area_id: str | None = None, search: str | None = None) -> list[dict]:
+        return self._repo.list_by_type("skill", area_id=area_id, search=search)

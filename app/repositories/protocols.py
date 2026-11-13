@@ -8,15 +8,26 @@ Doc = dict
 
 
 class CatalogRepository(Protocol):
-    def list_by_type(self, item_type: str, area_id: str | None = None) -> list[Doc]: ...
+    def list_by_type(
+        self,
+        item_type: str,
+        area_id: str | None = None,
+        search: str | None = None,
+    ) -> list[Doc]: ...
 
 
 class ServiceRepository(Protocol):
-    def search(self, filters: ServiceFilters) -> tuple[int, list[Doc]]: ...
+    def search(
+        self, filters: ServiceFilters, *, active_only: bool = True
+    ) -> tuple[int, list[Doc]]: ...
+
+    def list_all(self, *, status: str | None = None) -> list[Doc]: ...
 
     def get(self, service_id: str) -> Doc | None: ...
 
-    def list_by_mentor(self, mentor_id: str) -> list[Doc]: ...
+    def list_by_mentor(
+        self, mentor_id: str, filters: ServiceFilters | None = None
+    ) -> tuple[int, list[Doc]]: ...
 
     def create(self, doc: Doc) -> Doc: ...
 

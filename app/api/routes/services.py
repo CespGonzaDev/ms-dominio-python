@@ -6,12 +6,15 @@ from app.api.deps import get_service_service
 from app.core.security import CurrentUser, get_current_user
 from app.schemas.common import Page
 from app.schemas.service import (
+    Modality,
     ServiceCreate,
     ServiceFilters,
     ServiceOut,
+    ServiceSort,
+    ServiceStatus,
     ServiceStatusPatch,
     ServiceUpdate,
-    SortOption,
+    SessionType,
 )
 from app.services.service_service import ServiceService
 
@@ -25,26 +28,46 @@ def service_filters(
     search: Annotated[str | None, Query(max_length=100)] = None,
     skill_id: Annotated[str | None, Query(alias="skillId")] = None,
     area_id: Annotated[str | None, Query(alias="areaId")] = None,
-    modality: str | None = None,
-    type: str | None = None,
+    mentor_id: Annotated[str | None, Query(alias="mentorId")] = None,
+    modality: Modality | None = None,
+    type: SessionType | None = None,
     min_rating: Annotated[float | None, Query(alias="minRating", ge=0, le=5)] = None,
-    price_max: Annotated[float | None, Query(alias="priceMax", ge=0)] = None,
+    price_max: Annotated[int | None, Query(alias="priceMax", ge=0)] = None,
     free: bool | None = None,
-    day: str | None = None,
-    sort: SortOption = "recent",
+    day: Annotated[int | None, Query(ge=0, le=6)] = None,
+    sort: ServiceSort = "relevance",
     page: Annotated[int, Query(ge=1)] = 1,
-    page_size: Annotated[int, Query(alias="pageSize", ge=1, le=100)] = 20,
+    page_size: Annotated[int, Query(alias="pageSize", ge=1, le=100)] = 10,
 ) -> ServiceFilters:
     return ServiceFilters(
         search=search.strip() if search else None,
         skill_id=skill_id,
         area_id=area_id,
+        mentor_id=mentor_id,
         modality=modality,
         type=type,
         min_rating=min_rating,
         price_max=price_max,
         free=free,
         day=day,
+        sort=sort,
+        page=page,
+        page_size=page_size,
+    )
+
+
+def my_service_filters(
+    status: ServiceStatus | None = None,
+    area_id: Annotated[str | None, Query(alias="areaId")] = None,
+    search: Annotated[str | None, Query(max_length=100)] = None,
+    sort: ServiceSort = "createdAt:desc",
+    page: Annotated[int, Query(ge=1)] = 1,
+    page_size: Annotated[int, Query(alias="pageSize", ge=1, le=100)] = 10,
+) -> ServiceFilters:
+    return ServiceFilters(
+        status=status,
+        area_id=area_id,
+        search=search.strip() if search else None,
         sort=sort,
         page=page,
         page_size=page_size,
@@ -61,9 +84,14 @@ def search_services(
     )
 
 
-@router.get("/me/services", response_model=list[ServiceOut])
-def my_services(user: User, svc: Svc):
-    return svc.list_mine(user)
+@router.get("/me/services", response_model=Page[ServiceOut])
+def my_services(
+    user: User, svc: Svc, filters: Annotated[ServiceFilters, Depends(my_service_filters)]
+):
+    total, items = svc.list_mine(user, filters)
+    return Page[ServiceOut](
+        total_records=total, page=filters.page, page_size=filters.page_size, items=items
+    )
 
 
 @router.get("/services/{service_id}", response_model=ServiceOut)

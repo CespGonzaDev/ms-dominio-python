@@ -1,51 +1,100 @@
-"""Esquemas del servicio de mentoría.
-
-SUPUESTO: la forma exacta de un servicio de la Fase I (src/types/api.ts de la web y
-CONTRATO_API.md) no estaba disponible al construirlo. Los campos salen de lo que describe el
-reparto (título, duración, tipo, cupo, modalidad, plataformas, precio, días, calificación).
-Si el contrato real difiere, el único archivo a ajustar es éste (más los fixtures del seed).
-"""
+"""Esquemas del servicio de mentoría alineados al contrato Fase I y ms-core (CatalogJson)."""
 
 from dataclasses import dataclass
 from typing import Literal
 
-from pydantic import ConfigDict, Field
+from pydantic import ConfigDict, Field, field_validator, model_validator
+from pydantic.alias_generators import to_camel
 
-from app.schemas.common import CamelModel
+from app.schemas.catalog import AreaOut, SkillOut
+from app.schemas.common import CamelModel, UserSummary
 
-ServiceStatus = Literal["active", "paused", "inactive"]
-SortOption = Literal["recent", "rating", "priceAsc", "priceDesc"]
+ServiceStatus = Literal["activo", "inactivo"]
+Modality = Literal["virtual", "presencial", "ambas"]
+SessionType = Literal["individual", "grupal"]
+Platform = Literal["google_meet", "zoom", "teams", "otra"]
+Currency = Literal["CRC", "USD"]
+DurationMinutes = Literal[30, 45, 60, 90, 120]
+ServiceSort = Literal[
+    "relevance",
+    "rating:desc",
+    "rating:asc",
+    "price:asc",
+    "price:desc",
+    "createdAt:desc",
+    "createdAt:asc",
+    "updatedAt:desc",
+    "updatedAt:asc",
+]
 
 
-class MentorSummary(CamelModel):
-    id: str
-    name: str | None = None
-    avatar: str | None = None
+class Price(CamelModel):
+    amount: int = Field(ge=0)
+    currency: Currency = "CRC"
 
 
-class ServiceBase(CamelModel):
-    """Campos editables por el dueño del servicio."""
+class ServiceInput(CamelModel):
+    """Campos editables para crear o actualizar un servicio de mentoría."""
 
-    model_config = ConfigDict(str_strip_whitespace=True)
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True,
+        str_strip_whitespace=True,
+    )
 
-    title: str = Field(min_length=1, max_length=120)
+    title: str = Field(min_length=3, max_length=120)
     description: str = Field(default="", max_length=2000)
     area_id: str = Field(min_length=1)
-    skill_ids: list[str] = Field(default_factory=list)
-    type: str = Field(min_length=1, max_length=50)
-    modality: str = Field(min_length=1, max_length=50)
-    platforms: list[str] = Field(default_factory=list)
-    duration_minutes: int = Field(gt=0)
-    capacity: int | None = Field(default=None, gt=0)
-    price: float = Field(default=0, ge=0)
-    available_days: list[str] = Field(default_factory=list)
+    skill_ids: list[str] = Field(min_length=1)
+    duration_minutes: DurationMinutes
+    type: SessionType
+    capacity: int = Field(default=1, ge=1, le=30)
+    modality: Modality
+    platforms: list[Platform] = Field(default_factory=list)
+    price: Price | None = None
+    available_days: list[int] = Field(default_factory=list)
+    availability_summary: str | None = Field(default=None, max_length=200)
+
+    @field_validator("price", mode="before")
+    @classmethod
+    def _normalize_price(cls, value):
+        if value is None:
+            return None
+        if isinstance(value, (int, float)):
+            if value < 0:
+                raise ValueError("El precio no puede ser negativo")
+            return None if value == 0 else {"amount": int(value), "currency": "CRC"}
+        if isinstance(value, dict) and value.get("amount") == 0:
+            return None
+        return value
+
+    @field_validator("available_days")
+    @classmethod
+    def _validate_days(cls, days: list[int]) -> list[int]:
+        for day in days:
+            if day < 0 or day > 6:
+                raise ValueError("Los días disponibles deben estar entre 0 y 6")
+        return sorted(set(days))
+
+    @model_validator(mode="after")
+    def _validate_domain_rules(self) -> "ServiceInput":
+        if self.type == "individual":
+            self.capacity = 1
+        elif self.capacity < 2:
+            raise ValueError("Las sesiones grupales requieren cupo mínimo de 2")
+
+        if self.modality == "presencial":
+            self.platforms = []
+        elif not self.platforms:
+            raise ValueError("Selecciona al menos una plataforma para modalidad virtual")
+        return self
 
 
-class ServiceCreate(ServiceBase):
+class ServiceCreate(ServiceInput):
     pass
 
 
-class ServiceUpdate(ServiceBase):
+class ServiceUpdate(ServiceInput):
     """PUT: reemplaza todos los campos editables."""
 
 
@@ -53,13 +102,25 @@ class ServiceStatusPatch(CamelModel):
     status: ServiceStatus
 
 
-class ServiceOut(ServiceBase):
+class ServiceOut(CamelModel):
+    """Servicio público retornado por catálogo, detalle y listados."""
+
     id: str
     mentor_id: str
-    mentor: MentorSummary | None = None
-    status: ServiceStatus = "active"
-    rating: float = 0
-    review_count: int = 0
+    mentor: UserSummary
+    title: str
+    description: str
+    area: AreaOut
+    skills: list[SkillOut]
+    duration_minutes: int
+    type: SessionType
+    capacity: int
+    modality: Modality
+    platforms: list[Platform]
+    price: Price | None = None
+    availability_summary: str = "Por coordinar"
+    available_days: list[int] = Field(default_factory=list)
+    status: ServiceStatus = "activo"
     created_at_epoch_ms: int
     updated_at_epoch_ms: int
 
@@ -69,15 +130,17 @@ class ServiceFilters:
     search: str | None = None
     skill_id: str | None = None
     area_id: str | None = None
-    modality: str | None = None
-    type: str | None = None
+    mentor_id: str | None = None
+    modality: Modality | None = None
+    type: SessionType | None = None
     min_rating: float | None = None
-    price_max: float | None = None
+    price_max: int | None = None
     free: bool | None = None
-    day: str | None = None
-    sort: SortOption = "recent"
+    day: int | None = None
+    status: ServiceStatus | None = None
+    sort: ServiceSort = "relevance"
     page: int = 1
-    page_size: int = 20
+    page_size: int = 10
 
     @property
     def offset(self) -> int:

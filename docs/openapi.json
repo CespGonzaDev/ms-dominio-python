@@ -142,6 +142,38 @@
               ],
               "title": "X-User-Avatar"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
           }
         ],
         "responses": {
@@ -194,6 +226,23 @@
                 }
               ],
               "title": "Areaid"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
             }
           },
           {
@@ -274,6 +323,38 @@
                 }
               ],
               "title": "X-User-Avatar"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
             }
           }
         ],
@@ -363,12 +444,33 @@
             }
           },
           {
+            "name": "mentorId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mentorid"
+            }
+          },
+          {
             "name": "modality",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
                 {
+                  "enum": [
+                    "virtual",
+                    "presencial",
+                    "ambas"
+                  ],
                   "type": "string"
                 },
                 {
@@ -385,6 +487,10 @@
             "schema": {
               "anyOf": [
                 {
+                  "enum": [
+                    "individual",
+                    "grupal"
+                  ],
                   "type": "string"
                 },
                 {
@@ -419,7 +525,7 @@
             "schema": {
               "anyOf": [
                 {
-                  "type": "number",
+                  "type": "integer",
                   "minimum": 0
                 },
                 {
@@ -452,7 +558,9 @@
             "schema": {
               "anyOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "maximum": 6,
+                  "minimum": 0
                 },
                 {
                   "type": "null"
@@ -467,13 +575,18 @@
             "required": false,
             "schema": {
               "enum": [
-                "recent",
-                "rating",
-                "priceAsc",
-                "priceDesc"
+                "relevance",
+                "rating:desc",
+                "rating:asc",
+                "price:asc",
+                "price:desc",
+                "createdAt:desc",
+                "createdAt:asc",
+                "updatedAt:desc",
+                "updatedAt:asc"
               ],
               "type": "string",
-              "default": "recent",
+              "default": "relevance",
               "title": "Sort"
             }
           },
@@ -496,7 +609,7 @@
               "type": "integer",
               "maximum": 100,
               "minimum": 1,
-              "default": 20,
+              "default": 10,
               "title": "Pagesize"
             }
           },
@@ -578,6 +691,38 @@
                 }
               ],
               "title": "X-User-Avatar"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
             }
           }
         ],
@@ -690,6 +835,38 @@
               ],
               "title": "X-User-Avatar"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
           }
         ],
         "requestBody": {
@@ -734,6 +911,103 @@
         "summary": "My Services",
         "operationId": "my_services_v1_me_services_get",
         "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "activo",
+                    "inactivo"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Areaid"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "relevance",
+                "rating:desc",
+                "rating:asc",
+                "price:asc",
+                "price:desc",
+                "createdAt:desc",
+                "createdAt:asc",
+                "updatedAt:desc",
+                "updatedAt:asc"
+              ],
+              "type": "string",
+              "default": "createdAt:desc",
+              "title": "Sort"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Pagesize"
+            }
+          },
           {
             "name": "X-ARR-ClientCert",
             "in": "header",
@@ -813,6 +1087,38 @@
               ],
               "title": "X-User-Avatar"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
           }
         ],
         "responses": {
@@ -821,11 +1127,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ServiceOut"
-                  },
-                  "title": "Response My Services V1 Me Services Get"
+                  "$ref": "#/components/schemas/Page_ServiceOut_"
                 }
               }
             }
@@ -938,6 +1240,38 @@
                 }
               ],
               "title": "X-User-Avatar"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
             }
           }
         ],
@@ -1058,6 +1392,38 @@
                 }
               ],
               "title": "X-User-Avatar"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
             }
           }
         ],
@@ -1189,6 +1555,38 @@
               ],
               "title": "X-User-Avatar"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
           }
         ],
         "responses": {
@@ -1304,6 +1702,38 @@
               ],
               "title": "X-User-Avatar"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
           }
         ],
         "requestBody": {
@@ -1398,41 +1828,6 @@
         ],
         "title": "HealthResponse"
       },
-      "MentorSummary": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "name": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Name"
-          },
-          "avatar": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Avatar"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id"
-        ],
-        "title": "MentorSummary"
-      },
       "Page_ServiceOut_": {
         "properties": {
           "totalRecords": {
@@ -1464,12 +1859,35 @@
         ],
         "title": "Page[ServiceOut]"
       },
+      "Price": {
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Amount"
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "CRC",
+              "USD"
+            ],
+            "title": "Currency",
+            "default": "CRC"
+          }
+        },
+        "type": "object",
+        "required": [
+          "amount"
+        ],
+        "title": "Price"
+      },
       "ServiceCreate": {
         "properties": {
           "title": {
             "type": "string",
             "maxLength": 120,
-            "minLength": 1,
+            "minLength": 3,
             "title": "Title"
           },
           "description": {
@@ -1488,143 +1906,100 @@
               "type": "string"
             },
             "type": "array",
+            "minItems": 1,
             "title": "Skillids"
+          },
+          "durationMinutes": {
+            "type": "integer",
+            "enum": [
+              30,
+              45,
+              60,
+              90,
+              120
+            ],
+            "title": "Durationminutes"
           },
           "type": {
             "type": "string",
-            "maxLength": 50,
-            "minLength": 1,
+            "enum": [
+              "individual",
+              "grupal"
+            ],
             "title": "Type"
+          },
+          "capacity": {
+            "type": "integer",
+            "maximum": 30.0,
+            "minimum": 1.0,
+            "title": "Capacity",
+            "default": 1
           },
           "modality": {
             "type": "string",
-            "maxLength": 50,
-            "minLength": 1,
+            "enum": [
+              "virtual",
+              "presencial",
+              "ambas"
+            ],
             "title": "Modality"
           },
           "platforms": {
             "items": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "google_meet",
+                "zoom",
+                "teams",
+                "otra"
+              ]
             },
             "type": "array",
             "title": "Platforms"
           },
-          "durationMinutes": {
-            "type": "integer",
-            "exclusiveMinimum": 0.0,
-            "title": "Durationminutes"
-          },
-          "capacity": {
+          "price": {
             "anyOf": [
               {
-                "type": "integer",
-                "exclusiveMinimum": 0.0
+                "$ref": "#/components/schemas/Price"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "availableDays": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Availabledays"
+          },
+          "availabilitySummary": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Capacity"
-          },
-          "price": {
-            "type": "number",
-            "minimum": 0.0,
-            "title": "Price",
-            "default": 0
-          },
-          "availableDays": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Availabledays"
+            "title": "Availabilitysummary"
           }
         },
         "type": "object",
         "required": [
           "title",
           "areaId",
+          "skillIds",
+          "durationMinutes",
           "type",
-          "modality",
-          "durationMinutes"
+          "modality"
         ],
         "title": "ServiceCreate"
       },
       "ServiceOut": {
         "properties": {
-          "title": {
-            "type": "string",
-            "maxLength": 120,
-            "minLength": 1,
-            "title": "Title"
-          },
-          "description": {
-            "type": "string",
-            "maxLength": 2000,
-            "title": "Description",
-            "default": ""
-          },
-          "areaId": {
-            "type": "string",
-            "minLength": 1,
-            "title": "Areaid"
-          },
-          "skillIds": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Skillids"
-          },
-          "type": {
-            "type": "string",
-            "maxLength": 50,
-            "minLength": 1,
-            "title": "Type"
-          },
-          "modality": {
-            "type": "string",
-            "maxLength": 50,
-            "minLength": 1,
-            "title": "Modality"
-          },
-          "platforms": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Platforms"
-          },
-          "durationMinutes": {
-            "type": "integer",
-            "exclusiveMinimum": 0.0,
-            "title": "Durationminutes"
-          },
-          "capacity": {
-            "anyOf": [
-              {
-                "type": "integer",
-                "exclusiveMinimum": 0.0
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Capacity"
-          },
-          "price": {
-            "type": "number",
-            "minimum": 0.0,
-            "title": "Price",
-            "default": 0
-          },
-          "availableDays": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Availabledays"
-          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -1634,34 +2009,94 @@
             "title": "Mentorid"
           },
           "mentor": {
+            "$ref": "#/components/schemas/UserSummary"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "area": {
+            "$ref": "#/components/schemas/AreaOut"
+          },
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/SkillOut"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "durationMinutes": {
+            "type": "integer",
+            "title": "Durationminutes"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "grupal"
+            ],
+            "title": "Type"
+          },
+          "capacity": {
+            "type": "integer",
+            "title": "Capacity"
+          },
+          "modality": {
+            "type": "string",
+            "enum": [
+              "virtual",
+              "presencial",
+              "ambas"
+            ],
+            "title": "Modality"
+          },
+          "platforms": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "google_meet",
+                "zoom",
+                "teams",
+                "otra"
+              ]
+            },
+            "type": "array",
+            "title": "Platforms"
+          },
+          "price": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/MentorSummary"
+                "$ref": "#/components/schemas/Price"
               },
               {
                 "type": "null"
               }
             ]
           },
+          "availabilitySummary": {
+            "type": "string",
+            "title": "Availabilitysummary",
+            "default": "Por coordinar"
+          },
+          "availableDays": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Availabledays"
+          },
           "status": {
             "type": "string",
             "enum": [
-              "active",
-              "paused",
-              "inactive"
+              "activo",
+              "inactivo"
             ],
             "title": "Status",
-            "default": "active"
-          },
-          "rating": {
-            "type": "number",
-            "title": "Rating",
-            "default": 0
-          },
-          "reviewCount": {
-            "type": "integer",
-            "title": "Reviewcount",
-            "default": 0
+            "default": "activo"
           },
           "createdAtEpochMs": {
             "type": "integer",
@@ -1674,26 +2109,31 @@
         },
         "type": "object",
         "required": [
-          "title",
-          "areaId",
-          "type",
-          "modality",
-          "durationMinutes",
           "id",
           "mentorId",
+          "mentor",
+          "title",
+          "description",
+          "area",
+          "skills",
+          "durationMinutes",
+          "type",
+          "capacity",
+          "modality",
+          "platforms",
           "createdAtEpochMs",
           "updatedAtEpochMs"
         ],
-        "title": "ServiceOut"
+        "title": "ServiceOut",
+        "description": "Servicio público retornado por catálogo, detalle y listados."
       },
       "ServiceStatusPatch": {
         "properties": {
           "status": {
             "type": "string",
             "enum": [
-              "active",
-              "paused",
-              "inactive"
+              "activo",
+              "inactivo"
             ],
             "title": "Status"
           }
@@ -1709,7 +2149,7 @@
           "title": {
             "type": "string",
             "maxLength": 120,
-            "minLength": 1,
+            "minLength": 3,
             "title": "Title"
           },
           "description": {
@@ -1728,65 +2168,95 @@
               "type": "string"
             },
             "type": "array",
+            "minItems": 1,
             "title": "Skillids"
+          },
+          "durationMinutes": {
+            "type": "integer",
+            "enum": [
+              30,
+              45,
+              60,
+              90,
+              120
+            ],
+            "title": "Durationminutes"
           },
           "type": {
             "type": "string",
-            "maxLength": 50,
-            "minLength": 1,
+            "enum": [
+              "individual",
+              "grupal"
+            ],
             "title": "Type"
+          },
+          "capacity": {
+            "type": "integer",
+            "maximum": 30.0,
+            "minimum": 1.0,
+            "title": "Capacity",
+            "default": 1
           },
           "modality": {
             "type": "string",
-            "maxLength": 50,
-            "minLength": 1,
+            "enum": [
+              "virtual",
+              "presencial",
+              "ambas"
+            ],
             "title": "Modality"
           },
           "platforms": {
             "items": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "google_meet",
+                "zoom",
+                "teams",
+                "otra"
+              ]
             },
             "type": "array",
             "title": "Platforms"
           },
-          "durationMinutes": {
-            "type": "integer",
-            "exclusiveMinimum": 0.0,
-            "title": "Durationminutes"
-          },
-          "capacity": {
+          "price": {
             "anyOf": [
               {
-                "type": "integer",
-                "exclusiveMinimum": 0.0
+                "$ref": "#/components/schemas/Price"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "availableDays": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Availabledays"
+          },
+          "availabilitySummary": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Capacity"
-          },
-          "price": {
-            "type": "number",
-            "minimum": 0.0,
-            "title": "Price",
-            "default": 0
-          },
-          "availableDays": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Availabledays"
+            "title": "Availabilitysummary"
           }
         },
         "type": "object",
         "required": [
           "title",
           "areaId",
+          "skillIds",
+          "durationMinutes",
           "type",
-          "modality",
-          "durationMinutes"
+          "modality"
         ],
         "title": "ServiceUpdate",
         "description": "PUT: reemplaza todos los campos editables."
@@ -1820,6 +2290,46 @@
           "name"
         ],
         "title": "SkillOut"
+      },
+      "UserSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "fullName": {
+            "type": "string",
+            "title": "Fullname"
+          },
+          "avatarUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatarurl"
+          },
+          "ratingAverage": {
+            "type": "number",
+            "title": "Ratingaverage",
+            "default": 0.0
+          },
+          "ratingCount": {
+            "type": "integer",
+            "title": "Ratingcount",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "fullName"
+        ],
+        "title": "UserSummary",
+        "description": "Resumen público de usuario compartido con Frontend y MS1."
       },
       "ValidationError": {
         "properties": {

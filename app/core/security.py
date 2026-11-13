@@ -57,10 +57,21 @@ class CurrentUser:
     role: str
     name: str | None = None
     avatar: str | None = None
+    authorization: str | None = None
+    correlation_id: str | None = None
 
     @property
     def is_admin(self) -> bool:
         return self.role == "admin"
+
+    def forward_headers(self) -> dict[str, str]:
+        """Headers de contexto a propagar en llamadas síncronas hacia ms-core."""
+        headers: dict[str, str] = {"X-User-Id": self.id, "X-User-Role": self.role}
+        if self.authorization:
+            headers["Authorization"] = self.authorization
+        if self.correlation_id:
+            headers["X-Correlation-Id"] = self.correlation_id
+        return headers
 
 
 def get_current_user(
@@ -68,16 +79,21 @@ def get_current_user(
     x_user_role: Annotated[str | None, Header()] = None,
     x_user_name: Annotated[str | None, Header()] = None,
     x_user_avatar: Annotated[str | None, Header()] = None,
+    authorization: Annotated[str | None, Header()] = None,
+    x_correlation_id: Annotated[str | None, Header()] = None,
 ) -> CurrentUser:
-    """Identidad inyectada por APIM (X-User-Id del JWT). El backend no decodifica el token.
-
-    X-User-Role / X-User-Name / X-User-Avatar son opcionales y requieren que APIM los inyecte
-    desde los claims role, name y avatar del JWT (pendiente de acordar con P4).
-    """
+    """Identidad inyectada por APIM (X-User-Id / X-User-Role del JWT)."""
     if not x_user_id:
         raise AppError(401, "UNAUTHORIZED", "Falta la identidad del usuario")
     role = (x_user_role or "user").strip().lower()
-    return CurrentUser(id=x_user_id, role=role, name=x_user_name, avatar=x_user_avatar)
+    return CurrentUser(
+        id=x_user_id,
+        role=role,
+        name=x_user_name,
+        avatar=x_user_avatar,
+        authorization=authorization,
+        correlation_id=x_correlation_id,
+    )
 
 
 def require_admin(user: Annotated[CurrentUser, Depends(get_current_user)]) -> CurrentUser:

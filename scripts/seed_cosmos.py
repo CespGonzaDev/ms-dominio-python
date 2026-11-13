@@ -1,13 +1,10 @@
 """Provisiona Cosmos DB y carga datos iniciales.
 
-    python -m scripts.seed_cosmos --fixtures-dir data/seed/sample
+    python -m scripts.seed_cosmos --fixtures-dir data/seed/fase1
 
-Espera tres archivos JSON en el directorio indicado: areas.json, skills.json y services.json
-(listas de objetos en camelCase). Es idempotente (upsert por id).
-
-IMPORTANTE: data/seed/sample son datos de EJEMPLO para desarrollo. Los fixtures reales de la
-Fase I (src/mocks/fixtures de la web) deben exportarse a ese mismo formato JSON y pasarse con
---fixtures-dir. Requiere COSMOS_ENDPOINT y COSMOS_KEY en el entorno (.env local).
+Espera archivos JSON en el directorio indicado: areas.json, skills.json y services.json
+(obligatorios), más reviews.json, reports.json y search_history.json (opcionales).
+Es idempotente (upsert por id). Requiere COSMOS_ENDPOINT y COSMOS_KEY en el entorno (.env local).
 """
 
 import argparse
@@ -30,27 +27,41 @@ def normalize_catalog(items: list[dict], item_type: str) -> list[dict]:
 
 
 def normalize_service(raw: dict, now: int | None = None) -> dict:
-    """Completa los valores por defecto y valida contra el esquema de salida."""
+    """Completa los valores por defecto y valida contra el esquema real de salida."""
     now = now if now is not None else now_epoch_ms()
+    mentor = dict(raw.get("mentor") or {"id": raw.get("mentorId", ""), "fullName": "Mentor"})
+    mentor.setdefault("ratingAverage", 0.0)
+    mentor.setdefault("ratingCount", 0)
+    area_id = raw.get("areaId") or (raw.get("area") or {}).get("id")
+    skill_ids = raw.get("skillIds") or [s["id"] for s in raw.get("skills", [])]
     doc = {
-        "status": "active",
-        "rating": 0,
-        "reviewCount": 0,
+        "status": "activo",
+        "deleted": False,
+        "availabilitySummary": "Por coordinar",
+        "availableDays": [],
         "createdAtEpochMs": now,
         "updatedAtEpochMs": now,
         **raw,
+        "mentor": mentor,
+        **({"areaId": area_id} if area_id else {}),
+        **({"skillIds": skill_ids} if skill_ids else {}),
     }
-    ServiceOut.model_validate(doc)  # falla aquí (seed) y no al leer en producción
+    ServiceOut.model_validate(doc)
     return doc
 
 
-def _load(directory: Path, name: str) -> list[dict]:
-    return json.loads((directory / name).read_text(encoding="utf-8"))
+def _load(directory: Path, name: str, required: bool = True) -> list[dict]:
+    path = directory / name
+    if not path.exists():
+        if required:
+            raise FileNotFoundError(f"No se encontró el fixture requerido: {path}")
+        return []
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--fixtures-dir", type=Path, default=Path("data/seed/sample"))
+    parser.add_argument("--fixtures-dir", type=Path, default=Path("data/seed/fase1"))
     args = parser.parse_args()
 
     ensure_containers()
@@ -66,7 +77,24 @@ def main() -> None:
         catalog.upsert_item(doc)
     for doc in svc_docs:
         services.upsert_item(doc)
-    print(f"Cargados: {len(areas)} áreas, {len(skills)} habilidades, {len(svc_docs)} servicios")
+
+    extra_counts: dict[str, int] = {}
+    for file_name, container_name in (
+        ("reviews.json", "reviews"),
+        ("reports.json", "reports"),
+        ("search_history.json", "searchHistory"),
+    ):
+        docs = _load(args.fixtures_dir, file_name, required=False)
+        if docs:
+            cont = get_container(container_name)
+            for doc in docs:
+                cont.upsert_item(doc)
+            extra_counts[container_name] = len(docs)
+
+    summary = f"{len(areas)} áreas, {len(skills)} habilidades, {len(svc_docs)} servicios"
+    if extra_counts:
+        summary += ", " + ", ".join(f"{v} {k}" for k, v in extra_counts.items())
+    print(f"Cargados: {summary}")
 
 
 if __name__ == "__main__":
