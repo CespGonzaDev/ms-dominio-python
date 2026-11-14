@@ -2,7 +2,7 @@
 
 from typing import Literal
 
-from pydantic import ConfigDict, Field
+from pydantic import ConfigDict, Field, model_validator
 from pydantic.alias_generators import to_camel
 
 from app.schemas.common import CamelModel
@@ -51,6 +51,12 @@ class SearchHistoryCreate(CamelModel):
         str_strip_whitespace=True,
     )
 
-    query: str = Field(min_length=1, max_length=120)
+    query: str = Field(default="", max_length=120)
     skill_id: str | None = None
     area_id: str | None = None
+
+    @model_validator(mode="after")
+    def _require_any_criteria(self) -> "SearchHistoryCreate":
+        if not (self.query or self.skill_id or self.area_id):
+            raise ValueError("Debe indicar al menos 'query', 'skillId' o 'areaId'")
+        return self

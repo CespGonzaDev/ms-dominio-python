@@ -5000,8 +5000,8 @@
           "query": {
             "type": "string",
             "maxLength": 120,
-            "minLength": 1,
-            "title": "Query"
+            "title": "Query",
+            "default": ""
           },
           "skillId": {
             "anyOf": [
@@ -5027,9 +5027,6 @@
           }
         },
         "type": "object",
-        "required": [
-          "query"
-        ],
         "title": "SearchHistoryCreate"
       },
       "ServiceCreate": {

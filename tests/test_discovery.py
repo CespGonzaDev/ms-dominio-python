@@ -75,3 +75,10 @@ def test_recommendations_and_search_history(api, service_payload, core_client):
 def test_search_history_validation(api):
     r = api.post("/v1/me/search-history", json={"query": "   "}, headers=ALICE)
     assert r.status_code == 400 and r.json()["code"] == "VALIDATION_ERROR"
+
+    by_area = api.post(
+        "/v1/me/search-history",
+        json={"query": "", "areaId": "area_mec"},
+        headers=ALICE,
+    )
+    assert by_area.status_code == 204
