@@ -16,7 +16,7 @@ def test_areas_and_skills(api, catalog_repo):
     assert [s["id"] for s in searched] == ["sk_python"]
 
 
-def test_catalog_requires_identity(api):
-    r = api.get("/v1/catalog/areas")
-    assert r.status_code == 401
-    assert r.json()["code"] == "UNAUTHORIZED"
+def test_catalog_and_services_are_public_without_identity(api):
+    assert api.get("/v1/catalog/areas").status_code == 200
+    assert api.get("/v1/catalog/skills").status_code == 200
+    assert api.get("/v1/services").status_code == 200

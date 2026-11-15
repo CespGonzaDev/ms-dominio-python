@@ -75,9 +75,7 @@ def my_service_filters(
 
 
 @router.get("/services", response_model=Page[ServiceOut])
-def search_services(
-    _: User, svc: Svc, filters: Annotated[ServiceFilters, Depends(service_filters)]
-):
+def search_services(svc: Svc, filters: Annotated[ServiceFilters, Depends(service_filters)]):
     total, items = svc.search(filters)
     return Page[ServiceOut](
         total_records=total, page=filters.page, page_size=filters.page_size, items=items
