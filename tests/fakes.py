@@ -178,6 +178,11 @@ class FakeSearchHistoryRepository:
         items.sort(key=lambda d: -d["atEpochMs"])
         return items[:limit]
 
+    def list_recent(self, limit: int = 200) -> list[dict]:
+        items = [dict(d) for d in self.docs]
+        items.sort(key=lambda d: -d["atEpochMs"])
+        return items[:limit]
+
     def create(self, doc: dict) -> dict:
         self.docs.append(dict(doc))
         return dict(doc)

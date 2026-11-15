@@ -211,3 +211,48 @@ class DiscoveryService:
         if rating >= 4.5 and area_name:
             return 1, f"Mejor calificado en {area_name}"
         return 0, "Recomendado para ti"
+
+    def popular_searches(self, limit: int = 5) -> list[str]:
+        """Devuelve los términos más buscados en `searchHistory`, completados con skills."""
+        counts: dict[str, int] = {}
+        labels: dict[str, str] = {}
+        latest: dict[str, int] = {}
+
+        for item in self._history.list_recent(200):
+            raw_q = (item.get("query") or "").strip()
+            if not raw_q:
+                continue
+            key = raw_q.casefold()
+            counts[key] = counts.get(key, 0) + 1
+            at = int(item.get("atEpochMs") or 0)
+            if at >= latest.get(key, -1):
+                latest[key] = at
+                labels[key] = raw_q
+
+        ranked = sorted(
+            counts.keys(),
+            key=lambda k: (-counts[k], -latest[k], labels[k]),
+        )
+        results = [labels[k] for k in ranked[:limit]]
+        if len(results) >= limit:
+            return results
+
+        seen = {r.casefold() for r in results}
+        skill_counts: dict[str, int] = {}
+        skill_labels: dict[str, str] = {}
+        for svc in self._services.list_all(status="activo"):
+            for sk in svc.get("skills", []):
+                name = (sk.get("name") or "").strip()
+                if not name:
+                    continue
+                k = name.casefold()
+                skill_counts[k] = skill_counts.get(k, 0) + 1
+                skill_labels.setdefault(k, name)
+
+        for k in sorted(skill_counts.keys(), key=lambda x: (-skill_counts[x], skill_labels[x])):
+            if k not in seen:
+                results.append(skill_labels[k])
+                seen.add(k)
+                if len(results) >= limit:
+                    break
+        return results

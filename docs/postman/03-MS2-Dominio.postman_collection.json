@@ -19,8 +19,8 @@
                 "exec": [
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
                   "const b = pm.response.json();",
-                  "pm.test('status ok y timestampEpochMs', () => {",
-                  "  pm.expect(b.status).to.eql('ok');",
+                  "pm.test('status UP y timestampEpochMs', () => {",
+                  "  pm.expect(b.status).to.eql('UP');",
                   "  pm.expect(b.service).to.eql('ms-dominio-python');",
                   "  pm.expect(b.timestampEpochMs).to.be.a('number').and.above(1e12);",
                   "});"
@@ -680,6 +680,45 @@
               "path": [
                 "v1",
                 "recommendations"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener búsquedas populares (público) -> 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const list = pm.response.json();",
+                  "pm.test('devuelve arreglo de términos populares', () => {",
+                  "  pm.expect(list).to.be.an('array').that.is.not.empty;",
+                  "  pm.expect(list[0]).to.be.a('string');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/popular-searches?limit=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "popular-searches"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
               ]
             }
           }

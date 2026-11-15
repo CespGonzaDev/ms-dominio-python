@@ -56,6 +56,14 @@ def get_recommendations(user: User, svc: Svc):
     return {"items": svc.recommendations(user)}
 
 
+@router.get("/popular-searches", response_model=list[str])
+def get_popular_searches(
+    svc: Svc,
+    limit: Annotated[int, Query(ge=1, le=20)] = 5,
+):
+    return svc.popular_searches(limit=limit)
+
+
 @router.post("/me/search-history", status_code=204)
 def save_search_history(body: SearchHistoryCreate, user: User, svc: Svc) -> Response:
     svc.record_search(user, body)

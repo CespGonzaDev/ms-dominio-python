@@ -82,3 +82,18 @@ def test_search_history_validation(api):
         headers=ALICE,
     )
     assert by_area.status_code == 204
+
+
+def test_popular_searches_ranks_history_and_fills_from_skills(api, service_payload):
+    _seed_two_mentors(api, service_payload)
+    r1 = api.post("/v1/me/search-history", json={"query": "SQL"}, headers=ALICE)
+    r2 = api.post("/v1/me/search-history", json={"query": "sql"}, headers=BOB)
+    r3 = api.post("/v1/me/search-history", json={"query": "Java"}, headers=ALICE)
+    assert r1.status_code == 204 and r2.status_code == 204 and r3.status_code == 204
+
+    resp = api.get("/v1/popular-searches?limit=4")
+    assert resp.status_code == 200
+    items = resp.json()
+    assert items[0].lower() == "sql"
+    assert items[1] == "Java"
+    assert len(items) >= 3

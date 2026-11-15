@@ -24,5 +24,14 @@ class CosmosSearchHistoryRepository:
         )
         return [strip_system_fields(i) for i in items]
 
+    def list_recent(self, limit: int = 200) -> list[dict]:
+        query = "SELECT * FROM c ORDER BY c.atEpochMs DESC OFFSET 0 LIMIT @limit"
+        items = self._container.query_items(
+            query=query,
+            parameters=[{"name": "@limit", "value": limit}],
+            enable_cross_partition_query=True,
+        )
+        return [strip_system_fields(i) for i in items]
+
     def create(self, doc: dict) -> dict:
         return strip_system_fields(self._container.create_item(body=doc))
