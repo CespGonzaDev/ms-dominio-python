@@ -21,7 +21,6 @@ User = Annotated[CurrentUser, Depends(get_current_user)]
 
 @router.get("/mentors", response_model=Page[MentorCardOut])
 def list_mentors(
-    _: User,
     svc: Svc,
     search: Annotated[str | None, Query(max_length=100)] = None,
     area_id: Annotated[str | None, Query(alias="areaId")] = None,

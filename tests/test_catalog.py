@@ -20,3 +20,4 @@ def test_catalog_and_services_are_public_without_identity(api):
     assert api.get("/v1/catalog/areas").status_code == 200
     assert api.get("/v1/catalog/skills").status_code == 200
     assert api.get("/v1/services").status_code == 200
+    assert api.get("/v1/mentors").status_code == 200
